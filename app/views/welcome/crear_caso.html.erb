@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Portal BI</title>
+	<style>
+	    html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
+}
+
+body {
+   margin: 0px;
+   
+   width: 100%;
+   height: 100%;
+}
+	</style>
+</head>
+<body style="background-color: white;">
+<%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 200px;") %>
+<%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
+<div style="position: absolute; top: 200px;width: 100%;height: 50px; background-color : #47d1d1"></div>
+<div style="position: absolute;top: 250px;width: 20%;bottom: 0px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
+<%= form_for :clientes, :html => { :style => 'position:absolute;top:50px;right:80px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
+  <%= f.submit "Inicio"  %>
+ <% end %>
+<%= form_for :client, :html => { :style => 'position:absolute;top:300px;left:25%;' }, :url => { :controller => "welcome", :action => "caso_creado"}, :method => 'get' do |f| %>
+  <p style="font-size: 1.3em;"><b>Datos del caso</b></p>
+  Fecha requerida <br> <%= f.date_select(:fecha, :order => [:month, :day, :year]) %> <br>
+  Parque <%= f.check_box :parque %> <br>
+    Altas <%= f.check_box :altas %> <br>
+    ARPU <%= f.check_box :arpu %> <br>
+    Recargas <%= f.check_box :recargas %> <br>
+    Periodo <br> <%= f.date_select(:periodo, :order => [:month, :day, :year]) %> <br>
+    - <br> <%= f.date_select(:periodo2, :order => [:month, :day, :year]) %> <br>
+    Descrpcion <br> <%= f.text_field :descripcion, :size => 120 %> <br>
+    <%= f.submit "Crear Caso"  %>
+ <% end %>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+class WelcomeController < ApplicationController
+
+$usuario_id = 0
+
+def asignar
+   database = SQLite3::Database.new( "new.database" )
+   p params
+   @ident = params[:ident]
+   database.execute("update casos set infosoft = 'SI', status = 'En Proceso' where id = "+@ident)
+   redirect_to :controller => 'welcome', :action => 'admin_casos'
+
+end
+
+def crear_usuario
+	database = SQLite3::Database.new( "new.database" )
+  	
+  	database.execute( "insert into usuarios(usuario,password,tipo,area_vp,gg,gerencia,nombre,cargo,idop) values('"+params[:client][:usuario]+"','"+params[:client][:password]+"','"+params[:client][:tipo]+"','"+params[:client][:areavp]+"', '"+params[:client][:gg]+"',
+  	                 '"+params[:client][:gerencia]+"', '"+params[:client][:nombre]+"', '"+params[:client][:cargo]+"',
+  	                  '"+params[:client][:idop]+"')")
+  	redirect_to :controller => 'welcome', :action => 'usuario_creado'
+end
+
+def cerrar_caso
+   database = SQLite3::Database.new( "new.database" )
+   p params
+   @ident = params[:ident]
+   database.execute("delete from casos where id = "+@ident)
+   redirect_to :controller => 'welcome', :action => 'consultor'
+
+end
+
+def admin_casos
+	database = SQLite3::Database.new( "new.database" )
+    @data = database.execute( "select * from casos" )
+end
+
+def consultor
+	database = SQLite3::Database.new( "new.database" )
+    @data = database.execute( "select * from casos where infosoft = 'SI'" )
+
+end	
+def caso_creado
+  	database = SQLite3::Database.new( "new.database" )
+  	database.execute( "insert into casos(usuario,infosoft,fecha_creado,fecha_requerida,status,parque,altas,arpu,recargas,periodo,descripcion)
+  	                   values("+$usuario_id.to_s+",'NO','25/04','"+params[:client]["fecha(1i)"]+"/"+params[:client]["fecha(2i)"]+"/"+params[:client]["fecha(3i)"]+"','Creado', '"+(params[:client][:parque] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:altas] == '0' ? 'NO' : 'SI' )+"',
+  	                 '"+(params[:client][:arpu] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:recargas] == '0' ? 'NO' : 'SI' )+"', '"+params[:client]["periodo(1i)"]+"/"+params[:client]["periodo(2i)"]+"/"+params[:client]["periodo(3i)"]+"-"+params[:client]["periodo2(1i)"]+"/"+params[:client]["periodo2(2i)"]+"/"+params[:client]["periodo2(3i)"]+"',
+  	                  '"+params[:client][:descripcion]+"')")
+  	redirect_to :controller => 'welcome', :action => 'index'
+ end
+
+
+ def index
+  	
+  	require 'sqlite3'
+database = SQLite3::Database.new( "new.database" )
+usuario_id = 0
+p database.execute("select * from usuarios")
+#database.execute("drop table casos")
+#database.execute( "create table casos(id INTEGER PRIMARY KEY, usuario INTEGER ,infosoft TEXT, fecha_creado TEXT, fecha_requerida TEXT, status TEXT,parque TEXT,altas TEXT,arpu TEXT,recargas TEXT, periodo TEXT, descripcion TEXT)" )
+#database.execute("drop table usuarios")
+#database.execute("create table if not exists usuarios(id INTEGER PRIMARY KEY,usuario TEXT, password TEXT,tipo TEXT, area_vp TEXT, gg TEXT, gerencia TEXT, nombre TEXT, cargo TEXT, idop TEXT)")
+#database.execute("insert into usuarios(usuario,password,tipo , area_vp , gg, gerencia, nombre, cargo, idop) values('admin','admin', 1,1,1,11,1,1,1)")
+  end
+
+  def login
+  	database = SQLite3::Database.new( "new.database" )
+  	@check = database.execute("select * from usuarios u where u.usuario = '"+params[:client][:usuario]+"' and u.password = '"+params[:client][:password]+"'")
+  	if (@check[0]!= nil)
+  		$usuario_id = @check[0][0]
+  		if @check[0][3] == "cliente"
+  			redirect_to :controller => 'welcome', :action => 'cliente'
+  		elsif @check[0][3] == "consultor"
+  			redirect_to :controller => 'welcome', :action => 'consultor'
+  		else
+  			redirect_to :controller => 'welcome', :action => 'admin'
+  		end
+  	else
+  		redirect_to :controller => 'welcome', :action => 'login_error'
+  	end
+  end
+
+  def cliente
+  	
+  end
+
+  def crear_caso
+
+
+  end
+
+
+
+end
+
+ 

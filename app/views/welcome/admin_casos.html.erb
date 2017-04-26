@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Portal BI</title>
+	<style>
+	    html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
+}
+
+body {
+   margin: 0px;
+   
+   width: 100%;
+   height: 100%;
+}
+table{
+   border-collapse: collapse;
+   width: 65%;
+}
+th {
+   background-color: blue;
+   color: white;
+   border: 1px solid black;
+}
+td {
+   text-align: center;
+   border: 1px solid black;
+}
+
+	</style>
+</head>
+<body style="background-color: white;">
+<%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 200px;") %>
+<%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
+<div style="position: absolute; top: 200px;width: 100%;height: 50px; background-color : #47d1d1"></div>
+<div style="position: absolute;top: 250px;width: 20%;bottom: 0px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
+<%= form_for :clientes, :html => { :style => 'position:absolute;top:50px;right:80px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
+  <%= f.submit "Inicio"  %>
+ <% end %>
+<p style="position: absolute;top: 250px;left: 25%;font-size: 1.3em;"><b>Lista de casos</b></p>
+<table style="position: absolute;top: 300px;left: 25%;border: 1px solid black;">                         
+  <tr>                        
+    <th>Caso</th>
+    <th>Usuario</th>
+    <th>Asignado a Infosoft</th>
+    <th>Fecha Creacion</th>
+    <th>Fecha Requerida</th>
+    <th>Estatus</th>
+    <th>Parque</th>
+    <th>Altas</th>
+    <th>ARPU</th>
+    <th>Recargas</th>
+    <th>Periodo</th>
+    <th>Asignar a infosoft</th>
+  </tr>
+<% @data.each do |data| %>       
+  <tr>
+    <td><%= data[0] %></td>
+    <td><%= data[1] %></td> 
+    <td><%= data[2] %></td>  
+    <td><%= data[3] %></td>  
+    <td><%= data[4] %></td>  
+    <td><%= data[5] %></td>  
+    <td><%= data[6] %></td>
+    <td><%= data[7] %></td> 
+    <td><%= data[8] %></td>  
+    <td><%= data[9] %></td>  
+    <td><%= data[10] %></td>
+     
+    <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "asignar"} do |f| %>
+    <%= hidden_field_tag :ident, data[0] %>
+  <%= f.submit "Asignar"  %>
+ <% end %></td>  
+  </tr>
+
+<% end %>                        
+</table> 
+</body>
+</html>
