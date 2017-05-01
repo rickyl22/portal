@@ -53,6 +53,7 @@ td {
     <th>ARPU</th>
     <th>Recargas</th>
     <th>Periodo</th>
+    <th>Ver Detalles</th>
     <th>Cerrar</th>
   </tr>
 <% @data.each do |data| %>       
@@ -68,7 +69,10 @@ td {
     <td><%= data[8] %></td>  
     <td><%= data[9] %></td>  
     <td><%= data[10] %></td>
-      
+      <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "ver_casos_consultor"} do |f| %>
+    <%= hidden_field_tag :ident, data[0] %>
+  <%= f.submit "Ver"  %>
+ <% end %></td>
      <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "cerrar_caso"} do |f| %>
     <%= hidden_field_tag :ident, data[0] %>
   <%= f.submit "Cerrar"  %>

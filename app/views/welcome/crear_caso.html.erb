@@ -21,20 +21,47 @@ body {
 <%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 200px;") %>
 <%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
 <div style="position: absolute; top: 200px;width: 100%;height: 50px; background-color : #47d1d1"></div>
-<div style="position: absolute;top: 250px;width: 20%;bottom: 0px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
+<img style="position: absolute; width: 200px;top:250px;height: 1100px" src="/login_cuadro.png" >
 <%= form_for :clientes, :html => { :style => 'position:absolute;top:50px;right:80px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
   <%= f.submit "Inicio"  %>
  <% end %>
-<%= form_for :client, :html => { :style => 'position:absolute;top:300px;left:25%;' }, :url => { :controller => "welcome", :action => "caso_creado"}, :method => 'get' do |f| %>
+<%= form_for :client, :html => { :style => 'position:absolute;top:250px;left:25%;' }, :url => { :controller => "welcome", :action => "caso_creado"}, :method => 'get' do |f| %>
   <p style="font-size: 1.3em;"><b>Datos del caso</b></p>
+  Titulo de requerimiento <%= f.text_field :titulo, :size => 80 %> <br>
+  Periodo : <br> <%= f.date_select(:periodo, :order => [:month, :day, :year]) %> <br>
+  hasta <br> <%= f.date_select(:periodo2, :order => [:month, :day, :year]) %> <br>
+  Tipo de archivo<%= f.select :tipo, ['txt','excel', 'rar', 'xlsl', 'csv', 'wid']%><br>
+  <p style="font-size: 1em;"><b>Indicadores</b></p>
   Fecha requerida <br> <%= f.date_select(:fecha, :order => [:month, :day, :year]) %> <br>
   Parque <%= f.check_box :parque %> <br>
     Altas <%= f.check_box :altas %> <br>
     ARPU <%= f.check_box :arpu %> <br>
     Recargas <%= f.check_box :recargas %> <br>
-    Periodo <br> <%= f.date_select(:periodo, :order => [:month, :day, :year]) %> <br>
-    - <br> <%= f.date_select(:periodo2, :order => [:month, :day, :year]) %> <br>
-    Descrpcion <br> <%= f.text_field :descripcion, :size => 120 %> <br>
+    Act tabla <%= f.check_box :act %> <br>
+    TLV <%= f.check_box :tlv %> <br>
+  <p style="font-size: 1em;"><b>Filtros</b></p>
+  
+    Smartphone: <%= f.radio_button :sp, 1, :checked => true %>
+    No Smartphone: <%= f.radio_button :sp, 0 %><br>
+    Pre <%= f.radio_button :pago, 'pre', :checked => true %>
+    Post <%= f.radio_button :pago, 'post' %><br>
+    <p style="font-size: 1em;"><b>Linea de negocio</b></p>
+     Movil <%= f.check_box :movil %>
+    TV <%= f.check_box :tv %> 
+    Fijo <%= f.check_box :fijo %>
+    IM <%= f.check_box :im %>
+    <p style="font-size: 1em;"><b>Condiciones</b></p>
+    <br><%= f.text_area :comment, :rows => "10" , :cols => "40"%>
+     <p style="font-size: 1em;"><b>Tipo de Caso</b></p>
+     Recurrente: <%= f.radio_button :recu, 'Recurrente', :checked => true %>
+     No recurrente: <%= f.radio_button :recu, 'No Recurrente' %><br>
+      <p style="font-size: 1em;"><b>Agrupaciones</b></p>
+      Por plan <%= f.radio_button :agrup, 'Por plan', :checked => true %><br>
+      Por Cliente <%= f.radio_button :agrup, 'Por Cliente' %><br>
+      Por Plataforma <%= f.radio_button :agrup, 'Por Plataforma' %><br>
+      Por tipo de terminal <%= f.radio_button :agrup, 'Por tipo de terminal' %><br>
+      Por tecnologia <%= f.radio_button :agrup, 'Por tecnologia' %><br>
+      Otro <%= f.radio_button :agrup, 'otro', :checked => true %> Especifique <%= f.text_field :especifique, :size => 40 %> <br><br>
     <%= f.submit "Crear Caso"  %>
  <% end %>
 

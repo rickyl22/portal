@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Portal BI</title>
+  <style>
+      html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
+}
+
+body {
+   margin: 0px;
+   
+   width: 100%;
+   height: 100%;
+}
+table{
+   border-collapse: collapse;
+   width: 65%;
+}
+th {
+   background-color: blue;
+   color: white;
+   border: 1px solid black;
+   width: 50%;
+}
+td {
+   text-align: center;
+   border: 1px solid black;
+}
+
+
+  </style>
+</head>
+<body style="background-color: white;">
+<%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 200px;") %>
+<%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
+<div style="position: absolute; top: 200px;width: 100%;height: 50px; background-color : #47d1d1"></div>
+<div style="position: absolute;top: 250px;width: 20%;bottom: 0px;"><img style="height: 700px;width: 100%;" src="/login_cuadro.png" ></div>
+<%= form_for :clientes, :html => { :style => 'position:absolute;top:50px;right:80px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
+  <%= f.submit "Inicio"  %>
+ <% end %>
+<p style="position: absolute;top: 250px;left: 25%;font-size: 1.3em;"><b>Detalles del caso</b></p>
+
+<% @data.each do |data| %>  
+  <table style="position: absolute;top: 300px;left: 25%;">
+      <tr>
+         <th>Datos del caso</th>
+         <th>Indicadores</th> 
+      </tr>
+      <tr>
+         <td>Titulo del Requerimiento: <%= @data[0][25]  %><br>
+             Periodo: <%= @data[0][10]  %><br>
+             Tipo de archivo: <%= @data[0][13]  %>
+         </td>
+         <td>Fecha requerida: <%= @data[0][4]  %><br>
+             Parque: <%= @data[0][6]  %><br>
+             Altas: <%= @data[0][7]  %><br>
+             ARPU: <%= @data[0][8]  %><br>
+             Recargas: <%= @data[0][9]  %><br>
+             Act_tabla: <%= @data[0][14]  %><br>
+             TLV: <%= @data[0][15]  %>
+         </td>
+      </tr>
+  </table>
+  <table style="position: absolute;top: 470px;left: 25%;">
+    <tr>
+      <th>Filtros</th>
+      <th>Linea de negocio</th>
+    </tr>
+    <tr>
+     <td>Smartphone : <%= @data[0][16]%><br>Tipo de pago: <%= @data[0][17]%></td>
+     <td>
+             Movil: <%= @data[0][18]  %><br>
+             TV: <%= @data[0][19]  %><br>
+             Fijo: <%= @data[0][20]  %><br>
+             IM: <%= @data[0][21]  %><br>
+     </td>
+      
+    </tr>
+  </table>
+ 
+  <table  style="position: absolute;top: 600px;left: 25%;">
+    <tr>
+      <th>Tipo de caso</th>
+       <th>Agrupaciones</th>
+    </tr>
+    <tr>
+      <td><%= @data[0][22]%></td>
+       <td><%= @data[0][23]%><br>
+            Especificacion: <%= @data[0][24]%></td>
+    </tr>
+  </table>
+  <% end %>
+      <p style="position: absolute;top:650px;left: 25%;"><b style="font-size: 1em;">Condiciones:</b><%= @data[0][11] %></p>
+    
+  </p>  
+  <%= form_for :clientes, :html => { :style => 'position:absolute;top:720px;left: 25%;' },:url => { :controller => "welcome", :action => "consultor"} do |f| %>
+  <%= f.submit "Volver"  %>
+  <% end %>  
+ 
+</body>
+</html>

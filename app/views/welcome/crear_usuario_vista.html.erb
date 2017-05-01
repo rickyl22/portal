@@ -31,17 +31,19 @@ body {
 <%= form_for :clientes, :html => { :style => 'position:absolute;top:350px;left:80px;' }, :url => { :controller => "welcome", :action => "admin_casos"} do |f| %>
   <%= f.submit "Ver Casos"  %>
  <% end %>
- <%= form_for :client, :html => { :style => 'position:absolute;top:250px;left:25%;' }, :url => { :controller => "welcome", :action => "crear_usuario"}, :method => 'get' do |f| %>
-  <p style="font-size: 1.3em;"><b>Datos del usuario</b></p>
+ <%= form_for :client, :html => { :style => 'position:absolute;top:270px;left:25%;' }, :url => { :controller => "welcome", :action => "crear_usuario"}, :method => 'get' do |f| %>
+  <b style="font-size: 1.3em;">Datos del usuario</b><br>
   Usuario<br><%= f.text_field :usuario %><br>
   Password<br><%= f.text_field :password %><br>
   Tipo<br><%= f.select :tipo, ['cliente', 'consultor','admin']%><br>
-  Area VP<br><%= f.text_field :areavp %><br>
-  GG<br><%= f.text_field :gg %><br />
-  Gerencia<br><%= f.text_field :gerencia %><br />
+  Area VP<br><%= f.select :area, ['area1', 'area2','area3']%><br>
+  GG<br><%= f.select :gg, ['area1', 'area2','area3']%><br>
+  Gerencia<br><%= f.select :gerencia, ['area1', 'area2','area3']%><br />
   Nombre<br><%= f.text_field :nombre %><br />
-  Cargo<br><%= f.text_field :cargo %><br />
-  IDOP<br><%= f.text_field :idop %><br /><br>
+  Cargo<br><%= f.select :cargo, ['area1', 'area2','area3']%><br />
+  IDOP<br><%= f.text_field :idop %><br>
+  Email<br><%= f.text_field :email %><br />
+  Confirmar email<br><%= f.text_field :email2 %><br />
   <%= f.submit "Crear Usuario"  %>
  <% end %>
 </body>
