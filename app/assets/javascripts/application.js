@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+// require_tree .
 
 $(document).ready(function(){
     $("#hola").click(function(){
@@ -24,4 +24,14 @@ $(document).ready(function(){
         $("#button")[0].disabled = true;
         $("#button")[0].value = null;
     });
+	
+	$("#addNewChoice").click(function() {
+		$("#poll_choices").append($("#new_choice_form").html())
+		}
+    );
+
 });
+
+function remove(element){
+    element.parentNode.parentNode.removeChild(element.parentNode);
+}

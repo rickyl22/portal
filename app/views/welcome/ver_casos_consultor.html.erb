@@ -64,7 +64,7 @@ td {
          </td>
       </tr>
   </table>
-  <table style="position: absolute;top: 470px;left: 25%;">
+  <table style="position: absolute;top: 460px;left: 25%;">
     <tr>
       <th>Filtros</th>
       <th>Linea de negocio</th>
@@ -81,7 +81,7 @@ td {
     </tr>
   </table>
  
-  <table  style="position: absolute;top: 600px;left: 25%;">
+  <table  style="position: absolute;top: 565px;left: 25%;">
     <tr>
       <th>Tipo de caso</th>
        <th>Agrupaciones</th>
@@ -93,12 +93,22 @@ td {
     </tr>
   </table>
   <% end %>
-      <p style="position: absolute;top:650px;left: 25%;"><b style="font-size: 1em;">Condiciones:</b><%= @data[0][11] %></p>
+      <table style="position: absolute;top:635px;left: 25%;">
+    <tr>
+      <th>Condiciones</th>
+      <th>Visualizacion del caso - Campos</th>
+    </tr>
+    <tr>
+      <td><%= @data[0][11] %></td>
+      <td><%= @data[0][26] %></td>
+      
+    </tr>
+    </table>
     
-  </p>  
+   
   <%= form_for :clientes, :html => { :style => 'position:absolute;top:720px;left: 25%;' },:url => { :controller => "welcome", :action => "consultor"} do |f| %>
   <%= f.submit "Volver"  %>
-  <% end %>  
+  <% end %>   
  
 </body>
 </html>
