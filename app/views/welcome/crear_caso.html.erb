@@ -56,14 +56,16 @@ body {
      Recurrente: <%= f.radio_button :recu, 'Recurrente', :checked => true %>
      No recurrente: <%= f.radio_button :recu, 'No Recurrente' %><br>
       <p style="font-size: 1em;"><b>Agrupaciones</b></p>
-      Por plan <%= f.radio_button :agrup, 'Por plan', :checked => true %><br>
-      Por Cliente <%= f.radio_button :agrup, 'Por Cliente' %><br>
-      Por Plataforma <%= f.radio_button :agrup, 'Por Plataforma' %><br>
-      Por tipo de terminal <%= f.radio_button :agrup, 'Por tipo de terminal' %><br>
-      Por tecnologia <%= f.radio_button :agrup, 'Por tecnologia' %><br>
-      Otro <%= f.radio_button :agrup, 'otro', :checked => true %> Especifique <%= f.text_field :especifique, :size => 40 %> <br><br>
+      Por plan <%= f.radio_button :agrup, 'Por plan', :class => "hola", :checked => true %><br>
+      Por Cliente <%= f.radio_button :agrup, 'Por Cliente', :class => "hola" %><br>
+      Por Plataforma <%= f.radio_button :agrup, 'Por Plataforma', :class => "hola" %><br>
+      Por tipo de terminal <%= f.radio_button :agrup, 'Por tipo de terminal', :class => "hola" %><br>
+      Por tecnologia <%= f.radio_button :agrup, 'Por tecnologia', :class => "hola" %><br>
+      Otro <%= f.radio_button :agrup, 'otro' , :id => 'hola' %> 
+      Especifique <%= f.text_field :especifique , :id => 'button', :disabled => true %><br><br>
     <%= f.submit "Crear Caso"  %>
  <% end %>
 
 </body>
+
 </html>

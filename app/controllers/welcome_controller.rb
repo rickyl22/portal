@@ -2,6 +2,7 @@ class WelcomeController < ApplicationController
 
 $usuario_id = 0
 
+
 def ver_casos_consultor
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
@@ -70,7 +71,8 @@ def caso_creado
   	                 '"+(params[:client][:arpu] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:recargas] == '0' ? 'NO' : 'SI' )+"',
   	                  '"+params[:client]["periodo(1i)"]+"/"+params[:client]["periodo(2i)"]+"/"+params[:client]["periodo(3i)"]+"  -  "+params[:client]["periodo2(1i)"]+"/"+params[:client]["periodo2(2i)"]+"/"+params[:client]["periodo2(3i)"]+"',
   	                  '"+params[:client][:comment]+"','hohohoh', '"+params[:client][:tipo]+"', '"+(params[:client][:act] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tlv] == '0' ? 'NO' : 'SI' )+"',
-  	                   '"+(params[:client][:sp] == '0' ? 'NO' : 'SI' )+"', '"+params[:client][:pago]+"','"+(params[:client][:movil] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tv] == '0' ? 'NO' : 'SI' )+"','"+(params[:client][:fijo] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:im] == '0' ? 'NO' : 'SI' )+"', '"+params[:client][:recu]+"', '"+params[:client][:agrup]+"','"+(params[:client][:especifique] == '' ? 'N/A' : params[:client][:especifique])+"', '"+params[:client][:titulo]+"')")
+  	                   '"+(params[:client][:sp] == '0' ? 'NO' : 'SI' )+"', '"+params[:client][:pago]+"','"+(params[:client][:movil] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tv] == '0' ? 'NO' : 'SI' )+"','"+(params[:client][:fijo] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:im] == '0' ? 'NO' : 'SI' )+"', '"+params[:client][:recu]+"', '"+params[:client][:agrup]+"',
+  	                   '"+(params[:client][:especifique] == nil ? 'N/A' : params[:client][:especifique])+"', '"+params[:client][:titulo]+"')")
   	redirect_to :controller => 'welcome', :action => 'index'
  end
 
@@ -111,8 +113,7 @@ usuario_id = 0
   end
 
   def crear_caso
-
-
+	@otro = 0
   end
 
 
