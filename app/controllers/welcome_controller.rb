@@ -33,7 +33,8 @@ end
 def crear_usuario
 	database = SQLite3::Database.new( "new.database" )
   	
-  	database.execute( "insert into usuarios(usuario,password,tipo,area_vp,gg,gerencia,nombre,cargo,idop) values('"+params[:client][:usuario]+"','"+params[:client][:password]+"','"+params[:client][:tipo]+"','"+params[:client][:areavp]+"', '"+params[:client][:gg]+"',
+  	database.execute( "insert into usuarios(usuario,password,tipo,area_vp,gg,gerencia,nombre,cargo,idop) values('"+params[:client][:usuario]+"',
+                     '"+params[:client][:password]+"','"+params[:client][:tipo]+"','"+params[:client][:area]+"', '"+params[:client][:gg]+"',
   	                 '"+params[:client][:gerencia]+"', '"+params[:client][:nombre]+"', '"+params[:client][:cargo]+"',
   	                  '"+params[:client][:idop]+"')")
   	redirect_to :controller => 'welcome', :action => 'usuario_creado'
@@ -66,8 +67,8 @@ def caso_creado
   	database = SQLite3::Database.new( "new.database" )
     @campos = params[:campos]
     @string = ""
-    @campos.each { |x| if x != "" then @string << x +"-" end}
-    @string = @string[0...-1]
+    @campos.each { |x| if x != "" then @string << x +" - " end}
+    @string = @string[0...-3]
   	database.execute( "insert into casos(usuario,infosoft,fecha_creado,fecha_requerida,status,parque,altas,arpu,recargas,periodo,condiciones,comentarios,
   		               tipo_archivo, act_tabla,tlv,phone,pre_post,movil,tv,fijo,im,tipo_caso,agrup,especifique,titulo,campos)
   	                   values("+$usuario_id.to_s+",'NO','25/04','"+params[:client]["fecha(1i)"]+"/"+params[:client]["fecha(2i)"]+"/"+params[:client]["fecha(3i)"]+"',

@@ -15,43 +15,55 @@ body {
    width: 100%;
    height: 100%;
 }
+td {
+   text-align: center;
+   align-content: center;
+}
 	</style>
 </head>
 <body style="background-color: white;">
 <%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 200px;") %>
 <%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
 <div style="position: absolute; top: 200px;width: 100%;height: 50px; background-color : #47d1d1"></div>
-<img style="position: absolute; width: 200px;top:250px;height: 1500px" src="/login_cuadro.png" >
+<img style="position: absolute; width: 270px;top:250px;height: 1500px" src="/login_cuadro.png" >
 <%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
   <%= f.submit "Inicio" , :class => "button" %>
 <% end %>
-<%= form_for :client, :html => { :style => 'position:absolute;top:250px;left:25%;' }, :url => { :controller => "welcome", :action => "caso_creado"}, :method => 'get' do |f| %>
+<%= form_for :client, :html => { :style => 'position:absolute;top:250px;left:270px;width: 75%;' }, :url => { :controller => "welcome", :action => "caso_creado"}, :method => 'get' do |f| %>
+<table style="margin: auto;">
+  <tr><td>
   <p style="font-size: 1.3em;"><b>Datos del caso</b></p>
-  Titulo de requerimiento <%= f.text_field :titulo, :size => 80 %> <br>
-  Periodo : <br> <%= f.date_select(:periodo, :order => [:month, :day, :year]) %> <br>
-  hasta <br> <%= f.date_select(:periodo2, :order => [:month, :day, :year]) %> <br>
-  Tipo de archivo<%= f.select :tipo, ['txt','excel', 'rar', 'xlsl', 'csv', 'wid']%><br>
+  Titulo de requerimiento<br> <%= f.text_field :titulo, :size => 60 %> <br><br>
+  Periodo : desde <%= f.date_select(:periodo, :order => [:month, :day, :year], :use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']) %> 
+  hasta <%= f.date_select(:periodo2, :order => [:month, :day, :year], :use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']) %> <br>
+  <br>Tipo de archivo<%= f.select :tipo, ['txt','excel', 'rar', 'xlsl', 'csv', 'wid']%><br>
   <p style="font-size: 1em;"><b>Indicadores</b></p>
-  Fecha requerida <br> <%= f.date_select(:fecha, :order => [:month, :day, :year]) %> <br>
-  Parque <%= f.check_box :parque %> <br>
-    Altas <%= f.check_box :altas %> <br>
-    ARPU <%= f.check_box :arpu %> <br>
-    Recargas <%= f.check_box :recargas %> <br>
-    Act tabla <%= f.check_box :act %> <br>
-    TLV <%= f.check_box :tlv %> <br>
+  Fecha requerida <br> <%= f.date_select(:fecha, :order => [:month, :day, :year], :use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']) %> <br>
+  <table style="margin: auto;">
+    <tr>
+    <td>Parque <%= f.check_box :parque %> </td>
+    <td>Altas <%= f.check_box :altas %> </td>
+    <td>ARPU <%= f.check_box :arpu %> </td>
+    </tr>
+    <tr>
+    <td>Recargas <%= f.check_box :recargas %> </td>
+    <td>Act tabla <%= f.check_box :act %> </td>
+    <td>TLV <%= f.check_box :tlv %> </td>
+    </tr>  
+  </table>
   <p style="font-size: 1em;"><b>Filtros</b></p>
   
     Smartphone: <%= f.radio_button :sp, 1, :checked => true %>
     No Smartphone: <%= f.radio_button :sp, 0 %><br>
-    Pre <%= f.radio_button :pago, 'Prepago', :checked => true %>
-    Post <%= f.radio_button :pago, 'Postpago' %><br>
+    Prepago <%= f.radio_button :pago, 'Prepago', :checked => true %>
+    Postpago <%= f.radio_button :pago, 'Postpago' %><br>
     <p style="font-size: 1em;"><b>Linea de negocio</b></p>
      Movil <%= f.check_box :movil %>
     TV <%= f.check_box :tv %> 
     Fijo <%= f.check_box :fijo %>
     IM <%= f.check_box :im %>
     <p style="font-size: 1em;"><b>Condiciones</b></p>
-    <br><%= f.text_area :comment, :rows => "10" , :cols => "40"%>
+    <%= f.text_area :comment, :rows => "10" , :cols => "40"%>
      <p style="font-size: 1em;"><b>Tipo de Caso</b></p>
      Recurrente: <%= f.radio_button :recu, 'Recurrente', :checked => true %>
      No recurrente: <%= f.radio_button :recu, 'No Recurrente' %><br>
@@ -70,7 +82,9 @@ body {
 </div><br><a href="javascript:;" id="addNewChoice">Agregar campo</a><br><br>
     <%= f.submit "Crear Caso"  %>
  <% end %>
-
+ </td>
+ </tr>
+</table>
 </body>
 
 </html>
