@@ -23,11 +23,11 @@ body {
 <%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
 <div style="position: absolute; top: 200px;width: 100%;height: 50px; background-color : #47d1d1"></div>
 <div style="position: absolute;top: 250px;width: 20%;bottom: 0px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
-<%= form_for :clientes, :html => { :style => 'position:absolute;top:50px;right:80px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
-  <%= f.submit "Inicio"  %>
- <% end %>
-<%= form_for :client, :html => { :style => 'position:absolute;top:350px;left:120px;' }, :url => { :controller => "welcome", :action => "crear_caso"} do |f| %>
-  <%= f.submit "Crear Caso"  %>
+<%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
+  <%= f.submit "Inicio" , :class => "button" %>
+<% end %>
+<%= form_for :client, :html => { :style => 'position:absolute;top:250px;' }, :url => { :controller => "welcome", :action => "crear_caso"} do |f| %>
+  <%= f.submit "Crear Caso" , :class => "button" %>
  <% end %>
 
 </body>
