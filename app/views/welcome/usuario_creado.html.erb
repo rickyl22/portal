@@ -23,7 +23,7 @@ body {
 <div style="position: absolute; top: 200px;width: 100%;height: 50px; background-color : #47d1d1"></div>
 <div style="position: absolute;top: 250px;width: 270px;bottom: 0px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
 <%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
-  <%= f.submit "Inicio" , :class => "button" %>
+  <%= f.submit "Cerrar Sesion" , :class => "button" %>
 <% end %>
   <p style="position: absolute;top: 350px;left: 40%;">Usuario creado satisfactoriamente!</p>
   <%= form_for :clientes, :html => { :style => 'position:absolute;top:450px;left: 25%;' },:url => { :controller => "welcome", :action => "admin"} do |f| %>
