@@ -43,32 +43,20 @@ td {
 <table style="position: absolute;top: 300px;left: 25%;border: 1px solid black;">                         
   <tr>                        
     <th>Caso</th>
-    <th>Usuario</th>
+    <th>Titulo</th>
     <th>Asignado a Infosoft</th>
-    <th>Fecha Creacion</th>
     <th>Fecha Requerida</th>
     <th>Estatus</th>
-    <th>Parque</th>
-    <th>Altas</th>
-    <th>ARPU</th>
-    <th>Recargas</th>
-    <th>Periodo</th>
-    <th>Ver Detalles</th>
-    <th>Cerrar</th>
+    <th>Ver Casos</th>
+    <th>Asignar a infosoft</th>
   </tr>
 <% @data.each do |data| %>       
   <tr>
     <td><%= data[0] %></td>
-    <td><%= data[1] %></td> 
-    <td><%= data[2] %></td>  
-    <td><%= data[3] %></td>  
+    <td><%= data[25] %></td> 
+    <td><%= data[2] %></td>    
     <td><%= data[4] %></td>  
-    <td><%= data[5] %></td>  
-    <td><%= data[6] %></td>
-    <td><%= data[7] %></td> 
-    <td><%= data[8] %></td>  
-    <td><%= data[9] %></td>  
-    <td><%= data[10] %></td>
+    <td><%= data[5] %></td> 
       <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "ver_casos_consultor"} do |f| %>
     <%= hidden_field_tag :ident, data[0] %>
   <%= f.submit "Ver"  %>

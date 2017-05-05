@@ -25,8 +25,10 @@ body {
 <%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
   <%= f.submit "Inicio" , :class => "button" %>
 <% end %>
-  <p style="position: absolute;top: 350px;left: 40%;">Usuario creado satisfactoriamente</p>
-  
+  <p style="position: absolute;top: 350px;left: 40%;">Usuario creado satisfactoriamente!</p>
+  <%= form_for :clientes, :html => { :style => 'position:absolute;top:450px;left: 25%;' },:url => { :controller => "welcome", :action => "admin"} do |f| %>
+  <%= f.submit "Volver"  %>
+  <% end %>
 
 </body>
 </html>

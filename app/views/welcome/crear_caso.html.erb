@@ -33,12 +33,13 @@ td {
 <table style="margin: auto;">
   <tr><td>
   <p style="font-size: 1.3em;"><b>Datos del caso</b></p>
-  Titulo de requerimiento<br> <%= f.text_field :titulo, :size => 60 %> <br><br>
-  Periodo : desde <%= f.date_select(:periodo, :order => [:month, :day, :year], :use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']) %> 
-  hasta <%= f.date_select(:periodo2, :order => [:month, :day, :year], :use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']) %> <br>
+  Titulo de requerimiento<br> <%= f.text_field :titulo, :size => 60 %> <br>
+  Fecha requerida <br> <%= f.date_select(:fecha, :order => [:month, :day, :year], :use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']) %> 
+  
   <br>Tipo de archivo<%= f.select :tipo, ['txt','excel', 'rar', 'xlsl', 'csv', 'wid']%><br>
   <p style="font-size: 1em;"><b>Indicadores</b></p>
-  Fecha requerida <br> <%= f.date_select(:fecha, :order => [:month, :day, :year], :use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']) %> <br>
+  Periodo : desde <%= f.date_select(:periodo, :order => [:month, :day, :year], :use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']) %> 
+  hasta <%= f.date_select(:periodo2, :order => [:month, :day, :year], :use_month_names => ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre']) %> <br>
   <table style="margin: auto;">
     <tr>
     <td>Parque <%= f.check_box :parque %> </td>

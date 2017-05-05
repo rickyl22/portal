@@ -78,7 +78,7 @@ def caso_creado
   	                  '"+params[:client][:comment]+"','hohohoh', '"+params[:client][:tipo]+"', '"+(params[:client][:act] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tlv] == '0' ? 'NO' : 'SI' )+"',
   	                   '"+(params[:client][:sp] == '0' ? 'NO' : 'SI' )+"', '"+params[:client][:pago]+"','"+(params[:client][:movil] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tv] == '0' ? 'NO' : 'SI' )+"','"+(params[:client][:fijo] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:im] == '0' ? 'NO' : 'SI' )+"', '"+params[:client][:recu]+"', '"+params[:client][:agrup]+"',
   	                   '"+(params[:client][:especifique] == nil ? 'N/A' : params[:client][:especifique])+"', '"+params[:client][:titulo]+"','"+@string+"')")
-  	redirect_to :controller => 'welcome', :action => 'index'
+  	#redirect_to :controller => 'welcome', :action => 'index'
  end
 
 
