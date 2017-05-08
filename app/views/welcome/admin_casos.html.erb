@@ -55,7 +55,6 @@ td {
     <th>Fecha Requerida</th>
     <th>Estatus</th>
     <th>Ver Casos</th>
-    <th>Asignar a infosoft</th>
   </tr>
 <% @data.each do |data| %>       
   <tr>
@@ -67,10 +66,6 @@ td {
     <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "ver_casos_admin"} do |f| %>
     <%= hidden_field_tag :ident, data[0] %>
   <%= f.submit "Ver"  %>
- <% end %></td> 
-    <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "asignar"} do |f| %>
-    <%= hidden_field_tag :ident, data[0] %>
-  <%= f.submit "Asignar"  %>
  <% end %></td>  
   </tr>
 

@@ -39,5 +39,17 @@ Rails.application.routes.draw do
   get 'welcome/ver_casos_consultor'
   post 'welcome/go_back'
   get 'welcome/go_back'
+  post 'welcome/guardar_cons'
+  get 'welcome/guardar_cons'
+  post 'welcome/guardar_admin'
+  get 'welcome/guardar_admin'
+  post 'welcome/asig_comp'
+  get 'welcome/asig_comp'
+  post 'welcome/cambiar_estatus'
+  get 'welcome/cambiar_estatus'
+  post 'welcome/ver_casos_cliente'
+  get 'welcome/ver_casos_cliente'
+  post 'welcome/ver_cliente'
+  get 'welcome/ver_cliente'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
