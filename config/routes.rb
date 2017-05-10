@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   root 'welcome#index'
+  get 'welcome/admin'
   get 'welcome/login'
   get 'welcome/cliente'
   get 'welcome/crear_caso'
@@ -16,7 +17,6 @@ Rails.application.routes.draw do
   post 'welcome/caso_creado'
   get 'welcome/cerrar_caso'
   post 'welcome/cerrar_caso'
-  get 'welcome/admin'
   post 'welcome/crear_usuario'
   get 'welcome/crear_usuario'
   post 'welcome/usuario_creado'
@@ -51,5 +51,7 @@ Rails.application.routes.draw do
   get 'welcome/ver_casos_cliente'
   post 'welcome/ver_cliente'
   get 'welcome/ver_cliente'
+  post 'welcome/mineria'
+  get 'welcome/mineria'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

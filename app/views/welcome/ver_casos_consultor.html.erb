@@ -18,9 +18,10 @@ body {
 table{
    border-collapse: collapse;
    width: 65%;
+   empty-cells: show;
 }
 th {
-   background-color: blue;
+   background-color: #167F92;
    color: white;
    border: 1px solid black;
    width: 50%;
@@ -34,17 +35,17 @@ td {
   </style>
 </head>
 <body style="background-color: white;">
-<%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 200px;") %>
+<%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 160px;") %>
 <%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
-<div style="position: absolute; top: 200px;width: 100%;height: 50px; background-color : #47d1d1"></div>
-<div style="position: absolute;top: 250px;width: 270px;bottom: 0px;"><img style="height: 800px;width: 100%;" src="/login_cuadro.png" ></div>
-<%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "index"} do |f| %>
+<div style="position: absolute; top: 160px;width: 100%;height: 20px; background-color : black"></div>
+<div style="position: absolute;top: 180px;width: 270px;height: 900px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
+<%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "mineria"} do |f| %>
   <%= f.submit "Cerrar Sesion" , :class => "button" %>
 <% end %>
-<p style="position: absolute;top: 250px;left: 25%;font-size: 1.3em;"><b>Detalles del caso</b></p>
+<p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Detalles del caso</b></p>
 
 <% @data.each do |data| %>  
-  <table style="position: absolute;top: 300px;left: 25%;">
+  <table style="position: absolute;top: 230px;left: 25%;">
       <tr>
          <th>Datos del caso</th>
          <th>Indicadores</th> 
@@ -65,7 +66,7 @@ td {
          </td>
       </tr>
   </table>
-  <table style="position: absolute;top: 460px;left: 25%;">
+  <table style="position: absolute;top: 390px;left: 25%;">
     <tr>
       <th>Filtros</th>
       <th>Linea de negocio</th>
@@ -82,7 +83,7 @@ td {
     </tr>
   </table>
  
-  <table  style="position: absolute;top: 565px;left: 25%;">
+  <table  style="position: absolute;top: 495px;left: 25%;">
     <tr>
       <th>Tipo de caso</th>
        <th>Agrupaciones</th>
@@ -94,7 +95,7 @@ td {
     </tr>
   </table>
   <% end %>
-      <table style="position: absolute;top:635px;left: 25%;">
+      <table style="position: absolute;top:565px;left: 25%;">
     <tr>
       <th>Condiciones</th>
       <th>Visualizacion del caso - Campos</th>
@@ -105,7 +106,7 @@ td {
       
     </tr>
     </table>
-    <table style="position: absolute;top:685px;left: 25%" >
+    <table style="position: absolute;top:615px;left: 25%" >
       <tr>
         <th>
           Comentarios 
@@ -123,18 +124,18 @@ td {
         </td>
       </tr>
     </table>
-   <%= form_for :clientes, :html => { :style => 'position:absolute;top:720px;left:25%' },:url => { :controller => "welcome", :action => "cambiar_estatus"} do |f| %>
+   <%= form_for :clientes, :html => { :style => 'position:absolute;top:650px;left:25%' },:url => { :controller => "welcome", :action => "cambiar_estatus"} do |f| %>
    <br>Cambiar estatus a: <br><%= f.text_area :estatus,  :value => @data[0][5] %>
    <%= hidden_field_tag :ident, @data[0][0] %>
   <%= f.submit "Cambiar" %>
 <% end %> 
-   <%= form_for :clientes, :html => { :style => 'position:absolute;top:800px;left:25%' },:url => { :controller => "welcome", :action => "guardar_cons"} do |f| %>
+   <%= form_for :clientes, :html => { :style => 'position:absolute;top:730px;left:25%' },:url => { :controller => "welcome", :action => "guardar_cons"} do |f| %>
    <br>Agregar comentario<br><%= f.text_area :comment_admin,  :value => @data[0][28], :rows => "5" , :cols => "80"%><br>
    <%= hidden_field_tag :ident, @data[0][0] %>
   <%= f.submit "enviar_comentario" %>
 <% end %>
    
-  <%= form_for :clientes, :html => { :style => 'position:absolute;top:960px;left: 25%;' },:url => { :controller => "welcome", :action => "consultor"} do |f| %>
+  <%= form_for :clientes, :html => { :style => 'position:absolute;top:890px;left: 25%;' },:url => { :controller => "welcome", :action => "consultor"} do |f| %>
   <%= f.submit "Volver"  %>
   <% end %>   
  

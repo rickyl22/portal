@@ -119,8 +119,10 @@ def caso_creado
   	                  '"+params[:client]["periodo(1i)"]+"/"+params[:client]["periodo(2i)"]+"/"+params[:client]["periodo(3i)"]+"  -  "+params[:client]["periodo2(1i)"]+"/"+params[:client]["periodo2(2i)"]+"/"+params[:client]["periodo2(3i)"]+"',
   	                  '"+params[:client][:comment]+"','', '"+params[:client][:tipo]+"', '"+(params[:client][:act] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tlv] == '0' ? 'NO' : 'SI' )+"',
   	                   '"+(params[:client][:sp] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:pago] == '0' ? 'NO' : 'SI' )+"','"+(params[:client][:movil] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tv] == '0' ? 'NO' : 'SI' )+"','"+(params[:client][:fijo] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:im] == '0' ? 'NO' : 'SI' )+"', '"+params[:client][:recu]+"', '"+params[:client][:agrup]+"',
-  	                   '"+(params[:client][:especifique] == nil ? 'N/A' : params[:client][:especifique])+"', '"+params[:client][:titulo]+"','"+@string+"','','','', '"+(params[:client][:other] == '0' ? 'NO' : params[:client][:otro] )+"' )")
+  	                   '"+(params[:client][:especifique] == nil ? 'N/A' : params[:client][:especifique])+"', '"+params[:client][:titulo]+"','"+@string+"','','','No asignada', '"+(params[:client][:other] == '0' ? 'NO' : params[:client][:otro] )+"' )")
   	#redirect_to :controller => 'welcome', :action => 'index'
+  
+
  end
 
 
@@ -164,6 +166,7 @@ usuario_id = 0
 	@otro = 0
   end
 
+  
 
 
 end
