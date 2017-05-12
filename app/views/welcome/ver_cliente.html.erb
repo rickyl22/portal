@@ -54,7 +54,8 @@ td {
          <td>Titulo del Requerimiento: <%= @data[0][25]  %><br>
              Fecha requerida: <%= @data[0][4]  %><br>
              Estatus: <%= @data[0][5]  %><br>
-             Tipo de archivo: <%= @data[0][13]  %>
+             Tipo de archivo: <%= @data[0][13]  %><br>
+             <%= link_to "Documento", :controller => "welcome", :action => "download" %><br>
          </td>
          <td>Periodo: <%= @data[0][10]  %><br>
              Parque: <%= @data[0][6]  %><br>

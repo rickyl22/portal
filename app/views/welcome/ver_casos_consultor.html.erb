@@ -38,7 +38,7 @@ td {
 <%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 160px;") %>
 <%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
 <div style="position: absolute; top: 160px;width: 100%;height: 20px; background-color : black"></div>
-<div style="position: absolute;top: 180px;width: 270px;height: 900px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
+<div style="position: absolute;top: 180px;width: 270px;height: 1000px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
 <%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "mineria"} do |f| %>
   <%= f.submit "Cerrar Sesion" , :class => "button" %>
 <% end %>
@@ -54,7 +54,8 @@ td {
          <td>Titulo del Requerimiento: <%= @data[0][25]  %><br>
              Fecha requerida: <%= @data[0][4]  %><br>
              Estatus: <%= @data[0][5]  %><br>
-             Tipo de archivo: <%= @data[0][13]  %>
+             Tipo de archivo: <%= @data[0][13]  %><br>
+             <%= link_to "Documento", :controller => "welcome", :action => "download" %><br>
          </td>
          <td>Periodo: <%= @data[0][10]  %><br>
              Parque: <%= @data[0][6]  %><br>
@@ -109,10 +110,10 @@ td {
     <table style="position: absolute;top:615px;left: 25%" >
       <tr>
         <th>
-          Comentarios 
+          Comentarios Administrador
         </th>
         <th>
-          Complejidad
+          Comentarios Consultor
         </th>
       </tr>
       <tr>
@@ -120,22 +121,40 @@ td {
           <%= @data[0][27] %>
         </td>
         <td>
-          <%= @data[0][29] %>
+          <%= @data[0][28] %>
         </td>
       </tr>
     </table>
-   <%= form_for :clientes, :html => { :style => 'position:absolute;top:650px;left:25%' },:url => { :controller => "welcome", :action => "cambiar_estatus"} do |f| %>
+    <table style="position: absolute;top:675px;left: 25%" >
+      <tr>
+        <th>
+          Complejidad
+        </th>
+        <th>
+          Estatus
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <%= @data[0][29] %>
+        </td>
+        <td>
+          <%= @data[0][5] %>
+        </td>
+      </tr>
+    </table>
+   <%= form_for :clientes, :html => { :style => 'position:absolute;top:710px;left:25%' },:url => { :controller => "welcome", :action => "cambiar_estatus"} do |f| %>
    <br>Cambiar estatus a: <br><%= f.text_area :estatus,  :value => @data[0][5] %>
    <%= hidden_field_tag :ident, @data[0][0] %>
   <%= f.submit "Cambiar" %>
 <% end %> 
-   <%= form_for :clientes, :html => { :style => 'position:absolute;top:730px;left:25%' },:url => { :controller => "welcome", :action => "guardar_cons"} do |f| %>
+   <%= form_for :clientes, :html => { :style => 'position:absolute;top:790px;left:25%' },:url => { :controller => "welcome", :action => "guardar_cons"} do |f| %>
    <br>Agregar comentario<br><%= f.text_area :comment_admin,  :value => @data[0][28], :rows => "5" , :cols => "80"%><br>
    <%= hidden_field_tag :ident, @data[0][0] %>
   <%= f.submit "enviar_comentario" %>
 <% end %>
    
-  <%= form_for :clientes, :html => { :style => 'position:absolute;top:890px;left: 25%;' },:url => { :controller => "welcome", :action => "consultor"} do |f| %>
+  <%= form_for :clientes, :html => { :style => 'position:absolute;top:950px;left: 25%;' },:url => { :controller => "welcome", :action => "consultor"} do |f| %>
   <%= f.submit "Volver"  %>
   <% end %>   
  

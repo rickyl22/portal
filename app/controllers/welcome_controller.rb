@@ -2,6 +2,14 @@ class WelcomeController < ApplicationController
 
 $usuario_id = 0
 
+def download
+  send_file(
+    "#{Rails.root}/public/neveratrans.pdf",
+    filename: "neveratrans.pdf",
+    type: "application/pdf"
+  )
+end
+
 def ver_cliente
     database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
@@ -18,7 +26,7 @@ def cambiar_estatus
    @ident = params[:ident]
    @comments = params[:clientes][:estatus]
    database.execute("update casos set status = '"+@comments+"' where id = "+@ident)
-   redirect_to :controller => 'welcome', :action => 'consultor'
+   redirect_to :controller => 'welcome', :action => 'ver_casos_consultor', :params => params
 end
 
 def asig_comp
@@ -26,7 +34,8 @@ def asig_comp
    @ident = params[:ident]
    @comments = params[:clientes][:comp]
    database.execute("update casos set complejidad = '"+@comments+"', infosoft = 'SI', status = 'En Proceso' where id = "+@ident)
-   redirect_to :controller => 'welcome', :action => 'admin_casos'
+   UserMailer.signup_confirmation(@comments).deliver
+   redirect_to :controller => 'welcome', :action => 'ver_casos_admin', :params => params
 end  
 
 def guardar_admin
@@ -34,7 +43,7 @@ def guardar_admin
    @ident = params[:ident]
    @comments = params[:clientes][:comment_admin]
    database.execute("update casos set comment_ad = '"+@comments+"' where id = "+@ident)
-   redirect_to :controller => 'welcome', :action => 'admin_casos'
+   redirect_to :controller => 'welcome', :action => 'ver_casos_admin', :params => params
 end
 
 def guardar_cons
@@ -42,7 +51,7 @@ def guardar_cons
    @ident = params[:ident]
    @comments = params[:clientes][:comment_admin]
    database.execute("update casos set comment_cons = '"+@comments+"' where id = "+@ident)
-   redirect_to :controller => 'welcome', :action => 'consultor'
+   redirect_to :controller => 'welcome', :action => 'ver_casos_consultor', :params => params
 end
 
 def ver_casos_consultor
@@ -120,7 +129,7 @@ def caso_creado
   	                  '"+params[:client][:comment]+"','', '"+params[:client][:tipo]+"', '"+(params[:client][:act] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tlv] == '0' ? 'NO' : 'SI' )+"',
   	                   '"+(params[:client][:sp] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:pago] == '0' ? 'NO' : 'SI' )+"','"+(params[:client][:movil] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tv] == '0' ? 'NO' : 'SI' )+"','"+(params[:client][:fijo] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:im] == '0' ? 'NO' : 'SI' )+"', '"+params[:client][:recu]+"', '"+params[:client][:agrup]+"',
   	                   '"+(params[:client][:especifique] == nil ? 'N/A' : params[:client][:especifique])+"', '"+params[:client][:titulo]+"','"+@string+"','','','No asignada', '"+(params[:client][:other] == '0' ? 'NO' : params[:client][:otro] )+"' )")
-  	UserMailer.signup_confirmation().deliver
+  	
     #redirect_to :controller => 'welcome', :action => 'index'
   
 
