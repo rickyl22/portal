@@ -44,16 +44,17 @@ td {
   <tr>                        
     <th>Caso</th>
     <th>Titulo</th>
+    <th>Fecha de creacion</th>
     <th>Asignado a Infosoft</th>
     <th>Complejidad</th>
     <th>Estatus</th>
     <th>Ver Casos</th>
-    <th>Cerrar</th>
   </tr>
 <% @data.each do |data| %>       
   <tr>
     <td><%= data[0] %></td>
     <td><%= data[25] %></td> 
+    <td><%= data[3] %></td>
     <td><%= data[2] %></td>    
     <td><%= data[29] %></td>  
     <td><%= data[5] %></td> 
@@ -61,10 +62,7 @@ td {
     <%= hidden_field_tag :ident, data[0] %>
   <%= f.submit "Ver"  %>
  <% end %></td>
-     <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "cerrar_caso"} do |f| %>
-    <%= hidden_field_tag :ident, data[0] %>
-  <%= f.submit "Cerrar"  %>
- <% end %></td> 
+      
   </tr>
 
 <% end %>                        

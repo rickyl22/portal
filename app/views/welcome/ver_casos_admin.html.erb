@@ -52,9 +52,11 @@ td {
       </tr>
       <tr>
          <td>Titulo del Requerimiento: <%= @data[0][25]  %><br>
+             Fecha creacion: <%= @data[0][3]  %><br>
              Fecha requerida: <%= @data[0][4]  %><br>
              Estatus: <%= @data[0][5]  %><br>
              Tipo de archivo: <%= @data[0][13]  %><br>
+             Modo de separacion: por <%= @data[0][31] %><br>
              <%= link_to "Documento", :controller => "welcome", :action => "download" %>
          </td>
          <td>Periodo: <%= @data[0][10]  %><br>
@@ -102,7 +104,7 @@ td {
       <th>Visualizacion del caso - Campos</th>
 		</tr>
 		<tr>
-			<td><%= @data[0][11] %></td>
+			<td><%= @data[0][11] %>&nbsp</td>
       <td><%= @data[0][26] %></td>
 			
 		</tr>
@@ -118,7 +120,7 @@ td {
       </tr>
       <tr>
         <td>
-          <%= @data[0][27] %>
+          <%= @data[0][27] %>&nbsp
         </td>
         <td>
           <%= @data[0][28] %>
@@ -149,6 +151,7 @@ td {
   <%= f.submit "Enviar_comentario" %>
 <% end %>
 <%= form_for :clientes, :html => { :style => 'position:absolute;top:870px;left:25%;' },:url => { :controller => "welcome", :action => "asig_comp"} do |f| %>
+<%= hidden_field_tag :titulo, @data[0][25] %>
 <%= hidden_field_tag :ident, @data[0][0] %>
 Asignar complejidad<br><%= f.select :comp, ['Bajo', 'Medio','Alto','URGENTE'] %><br><br>
 <%= f.submit "Asignar caso"  %>
@@ -156,11 +159,17 @@ Asignar complejidad<br><%= f.select :comp, ['Bajo', 'Medio','Alto','URGENTE'] %>
  <% end %>  
 
  <% end %> 
-
-  <%= form_for :clientes, :html => { :style => 'position:absolute;top:950px;left: 25%;' },:url => { :controller => "welcome", :action => "admin_casos"} do |f| %>
+ <% if @data[0][5] = "Cerrado" then %>
+<%= form_for :clientes, :html => { :style => 'position:absolute;top:950px;left: 25%;' }, :url => { :controller => "welcome", :action => "cerrar_caso"} do |f| %>
+    <%= hidden_field_tag :ident, @data[0][0] %>
+  <br><%= f.submit "Cerrar Caso" , :disabled => @disabled %><%= @cerrado_error %>
+ <% end %>
+ 
+  <%= form_for :clientes, :html => { :style => 'position:absolute;top:1000px;left: 25%;' },:url => { :controller => "welcome", :action => "admin_casos"} do |f| %>
+  <%= hidden_field_tag :ident, @data[0][0] %>
   <br><%= f.submit "Volver"  %>
   <% end %>
- 
- <div style="position: absolute;top: 180px;width: 270px;height: 1000px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
+  <% end %>
+ <div style="position: absolute;top: 180px;width: 270px;height: 1100px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
 </body>
 </html>
