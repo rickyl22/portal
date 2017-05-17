@@ -43,6 +43,9 @@ td {
  <%= form_for :clientes, :html => { :style => 'position:absolute;top:230px;' }, :url => { :controller => "welcome", :action => "ver_casos_cliente"} do |f| %>
   <%= f.submit "Mis Casos" , :class => "button" %>
  <% end %>
+ <%= form_for :clientes, :html => { :style => 'position:absolute;top:280px;' }, :url => { :controller => "welcome", :action => "opciones_cliente"} do |f| %>
+  <%= f.submit "Opciones" , :class => "button" %>
+ <% end %>
 <%= form_for :client, :html => {:multipart => true,  :style => 'position:absolute;top:180px;left:300px;width: 75%;' }, :url => { :controller => "welcome", :action => "caso_creado"}, :method => 'get' do |f| %>
 
   

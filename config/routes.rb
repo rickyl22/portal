@@ -55,5 +55,15 @@ Rails.application.routes.draw do
   get 'welcome/mineria'
   post 'welcome/download'
   get 'welcome/download'
+  post 'welcome/consultor_lider'
+  get 'welcome/consultor_lider'
+  post 'welcome/asignar_caso'
+  get 'welcome/asignar_caso'
+  post 'welcome/error_crear_usuario'
+  get 'welcome/error_crear_usuario'
+  post 'welcome/error_email'
+  get 'welcome/error_email'
+  post 'welcome/opciones_cliente'
+  get 'welcome/opciones_cliente'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

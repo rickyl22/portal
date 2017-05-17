@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Portal BI</title>
-  <style>
-      html {
+	<title>Portal BI</title>
+	<style>
+	    html {
    margin: 0px;
    height: 100%;
    width: 100%;
@@ -29,7 +29,7 @@ td {
    border: 1px solid black;
 }
 
-  </style>
+	</style>
 </head>
 <body style="background-color: white;">
 <%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 160px;") %>
@@ -39,15 +39,6 @@ td {
 <%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "mineria"} do |f| %>
   <%= f.submit "Cerrar Sesion" , :class => "button" %>
 <% end %>
-<%= form_for :client, :html => { :style => 'position:absolute;top:180px;' }, :url => { :controller => "welcome", :action => "crear_caso"} do |f| %>
-  <%= f.submit "Crear Caso" , :class => "button" %>
- <% end %>
- <%= form_for :clientes, :html => { :style => 'position:absolute;top:230px;' }, :url => { :controller => "welcome", :action => "ver_casos_cliente"} do |f| %>
-  <%= f.submit "Mis Casos" , :class => "button" %>
- <% end %>
- <%= form_for :clientes, :html => { :style => 'position:absolute;top:280px;' }, :url => { :controller => "welcome", :action => "opciones_cliente"} do |f| %>
-  <%= f.submit "Opciones" , :class => "button" %>
- <% end %>
 <p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Lista de casos</b></p>
 <table style="position: absolute;top: 230px;left: 25%;border: 1px solid black;">                         
   <tr>                        
@@ -58,6 +49,7 @@ td {
     <th>Complejidad</th>
     <th>Estatus</th>
     <th>Ver Casos</th>
+    <th>Asignar a:</th>
   </tr>
 <% @data.each do |data| %>       
   <tr>
@@ -67,10 +59,16 @@ td {
     <td><%= data[2] %></td>    
     <td><%= data[29] %></td>  
     <td><%= data[5] %></td> 
-      <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "ver_cliente"} do |f| %>
+      <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "ver_casos_consultor"} do |f| %>
     <%= hidden_field_tag :ident, data[0] %>
   <%= f.submit "Ver"  %>
- <% end %></td> 
+ <% end %></td>
+     <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "asignar_caso"} do |f| %>
+    <%= hidden_field_tag :ident, data[0] %>
+    <%= f.select :cons , @consultores %>
+  <%= f.submit "Asignar"  %>
+ <% end %></td>
+      
   </tr>
 
 <% end %>                        

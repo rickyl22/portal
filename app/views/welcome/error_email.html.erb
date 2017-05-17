@@ -33,7 +33,7 @@ body {
  <% end %>
  <%= form_for :client, :html => { :style => 'position:absolute;top:200px;left:25%;' }, :url => { :controller => "welcome", :action => "crear_usuario"}, :method => 'get' do |f| %>
   <b style="font-size: 1.3em;">Datos del usuario</b><br><br>
-   Usuario<br><%= f.text_field :usuario, :required => true %><br>
+  Usuario<br><%= f.text_field :usuario, :required => true %><br>
   Password<br><%= f.text_field :password, :required => true %><br>
   Tipo<br><%= f.select :tipo, ['cliente', 'consultor','consultor-lider','admin']%><br>
   Area VP<br><%= f.select :area, ['area1', 'area2','area3'] %><br>
@@ -42,6 +42,7 @@ body {
   Nombre<br><%= f.text_field :nombre, :required => true %><br />
   Cargo<br><%= f.select :cargo, ['area1', 'area2','area3'] %><br />
   IDOP<br><%= f.text_field :idop, :required => true %><br>
+   <b style="color: red"> Los emails ingresados no coinciden</b><br>
   Email<br><%= f.text_field :email, :required => true %><br />
   Confirmar email<br><%= f.text_field :email2, :required => true %><br /><br>
   

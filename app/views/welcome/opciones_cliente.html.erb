@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Portal BI</title>
-	<style>
-	    html {
+  <title>Portal BI</title>
+  <style>
+      html {
    margin: 0px;
    height: 100%;
    width: 100%;
@@ -15,10 +15,23 @@ body {
    width: 100%;
    height: 100%;
 }
-	</style>
+table{
+   border-collapse: collapse;
+   width: 65%;
+}
+th {
+   background-color: #167F92;
+   color: white;
+   border: 1px solid black;
+}
+td {
+   text-align: center;
+   border: 1px solid black;
+}
+
+  </style>
 </head>
 <body style="background-color: white;">
-
 <%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 160px;") %>
 <%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
 <div style="position: absolute; top: 160px;width: 100%;height: 20px; background-color : black"></div>
@@ -35,6 +48,23 @@ body {
  <%= form_for :clientes, :html => { :style => 'position:absolute;top:280px;' }, :url => { :controller => "welcome", :action => "opciones_cliente"} do |f| %>
   <%= f.submit "Opciones" , :class => "button" %>
  <% end %>
+<p style="position: absolute;top: 200px;left: 22%;font-size: 1.3em;"><b>Cambiar contrasena</b></p>
+    <%= form_for :clientes, :html => { :style => "position: absolute; top: 280px;left: 25%;"}, :url => { :controller => "welcome", :action => "ver_cliente"} do |f| %>
+    
+    Introduzca antigua contrasena: <%= f.text_field :oldpass %><br><br>
+    Introduzca nueva contrasena: <%= f.text_field :newpass %><br><br>
+    Confirmar nueva contrasena: <%= f.text_field :newpass2 %><br><br>
+  <%= f.submit "Cambiar contrasena"  %>
+ <% end %>
+ <p style="position: absolute;top: 440px;left: 22%;font-size: 1.3em;"><b>Cambiar email</b></p>
+    <%= form_for :clientes, :html => { :style => "position: absolute; top: 520px;left: 25%;"}, :url => { :controller => "welcome", :action => "ver_cliente"} do |f| %>
+    
+    Introduzca contrasena: <%= f.text_field :pass %><br><br>
+    Introduzca nuevo email: <%= f.text_field :newemail %><br><br>
+    Confirmar nuevo email: <%= f.text_field :newemail2 %><br><br>
+  <%= f.submit "Cambiar email"  %>
+ <% end %>
+  
 
 </body>
 </html>
