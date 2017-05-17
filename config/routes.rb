@@ -65,5 +65,9 @@ Rails.application.routes.draw do
   get 'welcome/error_email'
   post 'welcome/opciones_cliente'
   get 'welcome/opciones_cliente'
+  post 'welcome/cambiar_pass'
+  get 'welcome/cambiar_pass'
+  post 'welcome/error_pass'
+  get 'welcome/error_pass'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

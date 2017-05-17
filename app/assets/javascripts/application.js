@@ -35,3 +35,17 @@ $(document).ready(function(){
 function remove(element){
     element.parentNode.parentNode.removeChild(element.parentNode);
 }
+
+function alert(element){
+    $("#areas")[0].disabled = false; 
+    $("#areas").empty();
+    var option2 = document.createElement("option");
+    option2.text = " ";
+    option2.value = " ";
+    $("#areas")[0].append(option2)
+    var option = document.createElement("option");
+    option.text = element.value;
+    option.value = element.value;
+    $("#areas")[0].append(option)
+    
+}

@@ -52,6 +52,7 @@ td {
     <%= form_for :clientes, :html => { :style => "position: absolute; top: 280px;left: 25%;"}, :url => { :controller => "welcome", :action => "cambiar_pass"} do |f| %>
     
     Introduzca antigua contrasena: <%= f.text_field :oldpass %><br><br>
+    <p style="color: red">Las contrasenas no coinciden</p>
     Introduzca nueva contrasena: <%= f.text_field :newpass %><br><br>
     Confirmar nueva contrasena: <%= f.text_field :newpass2 %><br><br>
   <%= f.submit "Cambiar contrasena"  %>

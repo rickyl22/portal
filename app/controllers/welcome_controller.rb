@@ -2,6 +2,16 @@ class WelcomeController < ApplicationController
 
 $usuario_id = 0
 
+def cambiar_pass
+   if params[:clientes][:newpass] != params[:clientes][:newpass2]
+      redirect_to :controller => "welcome", :action => "error_pass"
+   else
+      database = SQLite3::Database.new( "new.database" )
+      database.execute( "update usuarios set password = '"+params[:clientes][:newpass]+"' where id = "+$usuario_id.to_s )
+      redirect_to :controller => 'welcome', :action => 'cliente'
+   end 
+end
+
 def asignar_caso
 	database = SQLite3::Database.new( "new.database" )
     database.execute( "update casos set consultor = '"+params[:clientes][:cons]+"' where id = "+params[:ident] )
@@ -12,8 +22,6 @@ def consultor_lider
 	database = SQLite3::Database.new( "new.database" )
     @data = database.execute( "select * from casos where infosoft = 'SI'" )
     @consultores = database.execute("select usuario from usuarios where tipo = 'consultor'")
-    p "hola"
-    p @consultores
 end
 
 def download
@@ -28,6 +36,14 @@ def ver_cliente
     database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @data = database.execute("select * from casos where id = "+@ident)
+   @date = database.execute("select fecha_creado from casos where id = "+@ident)
+   p "hola"
+   p @date
+   @foram = Date.parse @date[0][0]
+   @for2 = Date.parse Time.now.strftime("%Y/%m/%d")
+   @diff = @for2.mjd - @foram.mjd
+   p "hola"
+   p @diff
 end  
 
 def ver_casos_cliente
@@ -67,7 +83,7 @@ def guardar_admin
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @comments = params[:clientes][:comment_admin]
-   database.execute("update casos set comment_ad = '"+@comments+"' where id = "+@ident)
+   database.execute("insert into comentarios(id_caso,comentario,autor,fecha) values("+@ident+",'"+@comments+"', 'Administrador','"+Time.now.strftime("%Y/%m/%d")+"')")
    redirect_to :controller => 'welcome', :action => 'ver_casos_admin', :params => params
 end
 
@@ -75,7 +91,7 @@ def guardar_cons
     database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @comments = params[:clientes][:comment_admin]
-   database.execute("update casos set comment_cons = '"+@comments+"' where id = "+@ident)
+   database.execute("insert into comentarios(id_caso,comentario,autor,fecha) values("+@ident+",'"+@comments+"', 'Consultor','"+Time.now.strftime("%Y/%m/%d")+"')")
    redirect_to :controller => 'welcome', :action => 'ver_casos_consultor', :params => params
 end
 
@@ -83,6 +99,7 @@ def ver_casos_consultor
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @data = database.execute("select * from casos where id = "+@ident)
+   @comments = database.execute("select comentario from comentarios where id_caso = "+@ident)
 end
 
 def comentar
@@ -96,6 +113,7 @@ def ver_casos_admin
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @data = database.execute("select * from casos where id = "+@ident)
+   @comments = database.execute("select comentario from comentarios where id_caso = "+@ident)
    @disabled = true
    @cerrado_error = "  El consultor debe cambiar el status a 'Cerrado' antes de ser cerrado"
    if @data[0][5] == "Cerrado"
@@ -192,6 +210,9 @@ usuario_id = 0
 #database.execute("create table if not exists usuarios(id INTEGER PRIMARY KEY,usuario TEXT, password TEXT,tipo TEXT, area_vp TEXT, gg TEXT, gerencia TEXT,
 #                  nombre TEXT, cargo TEXT, idop TEXT,email TEXT)")
 #database.execute("insert into usuarios(usuario,password,tipo , area_vp , gg, gerencia, nombre, cargo, idop) values('admin','admin', 1,1,1,11,1,1,1)")
+  
+#database.execute("drop table comentarios")
+#database.execute("create table if not exists comentarios(id INTEGER PRIMARY KEY, id_caso INTEGER, comentario TEXT, autor TEXT, fecha TEXT)")
   end
 
   def login

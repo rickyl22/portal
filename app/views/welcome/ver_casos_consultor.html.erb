@@ -123,11 +123,13 @@ td {
           <%= @data[0][27] %>
         </td>
         <td>
-          <%= @data[0][28] %>
+          <% @comments.each do |com|  %>
+          <%= com %><br>
+          <% end %>
         </td>
       </tr>
     </table>
-    <table style="position: absolute;top:675px;left: 25%" >
+    <table style="position: absolute;top:875px;left: 25%" >
       <tr>
         <th>
           Complejidad
@@ -145,18 +147,18 @@ td {
         </td>
       </tr>
     </table>
-   <%= form_for :clientes, :html => { :style => 'position:absolute;top:710px;left:25%' },:url => { :controller => "welcome", :action => "cambiar_estatus"} do |f| %>
+   <%= form_for :clientes, :html => { :style => 'position:absolute;top:910px;left:25%' },:url => { :controller => "welcome", :action => "cambiar_estatus"} do |f| %>
    <br>Cambiar estatus a: <br><%= f.select :estatus, ['Creado','En proceso', 'Cerrado'] %>
    <%= hidden_field_tag :ident, @data[0][0] %>
   <%= f.submit "Cambiar" %>
 <% end %> 
-   <%= form_for :clientes, :html => { :style => 'position:absolute;top:790px;left:25%' },:url => { :controller => "welcome", :action => "guardar_cons"} do |f| %>
+   <%= form_for :clientes, :html => { :style => 'position:absolute;top:990px;left:25%' },:url => { :controller => "welcome", :action => "guardar_cons"} do |f| %>
    Agregar comentario<br><%= f.text_area :comment_admin,  :value => @data[0][28], :rows => "5" , :cols => "80"%><br>
    <%= hidden_field_tag :ident, @data[0][0] %>
   <%= f.submit "enviar_comentario" %>
 <% end %>
    
-  <%= form_for :clientes, :html => { :style => 'position:absolute;top:950px;left: 25%;' },:url => { :controller => "welcome", :action => "consultor"} do |f| %>
+  <%= form_for :clientes, :html => { :style => 'position:absolute;top:1150px;left: 25%;' },:url => { :controller => "welcome", :action => "consultor"} do |f| %>
   <%= f.submit "Volver"  %>
   <% end %>   
  

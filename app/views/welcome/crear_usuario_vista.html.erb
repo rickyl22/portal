@@ -35,12 +35,12 @@ body {
   <b style="font-size: 1.3em;">Datos del usuario</b><br><br>
    Usuario<br><%= f.text_field :usuario, :required => true %><br>
   Password<br><%= f.text_field :password, :required => true %><br>
-  Tipo<br><%= f.select :tipo, ['cliente', 'consultor','consultor-lider','admin']%><br>
-  Area VP<br><%= f.select :area, ['area1', 'area2','area3'] %><br>
+  Tipo<br><%= f.select :tipo, ['cliente', 'consultor','consultor-lider','admin'], {}, :onChange => "alert(this)",  :include_blank => true %><br>
+  Area VP<br><%= f.select :area, ['area1', 'area2','area3'],{:include_blank => true}, :disabled => true, :id => "areas" %><br>
   GG<br><%= f.select :gg, ['area1', 'area2','area3'] %><br>
   Gerencia<br><%= f.select :gerencia, ['area1', 'area2','area3'] %><br />
   Nombre<br><%= f.text_field :nombre, :required => true %><br />
-  Cargo<br><%= f.select :cargo, ['area1', 'area2','area3'] %><br />
+  Cargo<br><%= f.text_field :cargo, :required => true %><br />
   IDOP<br><%= f.text_field :idop, :required => true %><br>
   Email<br><%= f.text_field :email, :required => true %><br />
   Confirmar email<br><%= f.text_field :email2, :required => true %><br /><br>
