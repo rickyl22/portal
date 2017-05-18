@@ -2,6 +2,11 @@ class WelcomeController < ApplicationController
 
 $usuario_id = 0
 
+def ver_usuarios
+    database = SQLite3::Database.new( "new.database" )
+    @data = database.execute( "select * from usuarios" )
+end  
+
 def cambiar_pass
    if params[:clientes][:newpass] != params[:clientes][:newpass2]
       redirect_to :controller => "welcome", :action => "error_pass"
@@ -72,7 +77,7 @@ def asig_comp
    elsif @comments == "URGENTE"
    	  @dias = 3
    end
-   database.execute("update casos set complejidad = '"+@comments+"', infosoft = 'SI', status = 'En Proceso' where id = "+@ident)
+   database.execute("update casos set complejidad = '"+@comments+"', infosoft = 'SI', status = 'En Proceso', fecha_asig = '"+Time.now.strftime("%Y/%m/%d")+"' where id = "+@ident)
    @user = database.execute("select usuario from casos where id = "+@ident)
    @email = database.execute("select email from usuarios where id = "+@user[0][0].to_s)
    UserMailer.signup_confirmation(@comments,@titulo,@dias,@email).deliver
@@ -83,7 +88,7 @@ def guardar_admin
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @comments = params[:clientes][:comment_admin]
-   database.execute("insert into comentarios(id_caso,comentario,autor,fecha) values("+@ident+",'"+@comments+"', 'Administrador','"+Time.now.strftime("%Y/%m/%d")+"')")
+   database.execute("insert into comentarios(id_caso,comentario,autor,fecha) values("+@ident+",'"+params[:clientes][:comment_admin]+"', 'Administrador','"+Time.now.strftime("%Y/%m/%d-%H:%M")+"')")
    redirect_to :controller => 'welcome', :action => 'ver_casos_admin', :params => params
 end
 
@@ -91,7 +96,7 @@ def guardar_cons
     database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @comments = params[:clientes][:comment_admin]
-   database.execute("insert into comentarios(id_caso,comentario,autor,fecha) values("+@ident+",'"+@comments+"', 'Consultor','"+Time.now.strftime("%Y/%m/%d")+"')")
+   database.execute("insert into comentarios(id_caso,comentario,autor,fecha) values("+@ident+",'"+params[:clientes][:comment_admin]+"', 'Consultor','"+Time.now.strftime("%Y/%m/%d-%H:%M")+"')")
    redirect_to :controller => 'welcome', :action => 'ver_casos_consultor', :params => params
 end
 
@@ -99,7 +104,14 @@ def ver_casos_consultor
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @data = database.execute("select * from casos where id = "+@ident)
-   @comments = database.execute("select comentario from comentarios where id_caso = "+@ident)
+   @comments = database.execute("select comentario, autor,fecha from comentarios where id_caso = "+@ident)
+end
+
+def ver_casos_consultor_lider
+   database = SQLite3::Database.new( "new.database" )
+   @ident = params[:ident]
+   @data = database.execute("select * from casos where id = "+@ident)
+   @comments = database.execute("select comentario, autor,fecha from comentarios where id_caso = "+@ident)
 end
 
 def comentar
@@ -113,7 +125,9 @@ def ver_casos_admin
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @data = database.execute("select * from casos where id = "+@ident)
-   @comments = database.execute("select comentario from comentarios where id_caso = "+@ident)
+   @comments = database.execute("select comentario, autor,fecha from comentarios where id_caso = "+@ident)
+   p "holaaaa"
+   p @comments
    @disabled = true
    @cerrado_error = "  El consultor debe cambiar el status a 'Cerrado' antes de ser cerrado"
    if @data[0][5] == "Cerrado"
@@ -126,7 +140,7 @@ end
 def asignar
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
-   database.execute("update casos set infosoft = 'SI', status = 'En Proceso' where id = "+@ident)
+   database.execute("update casos set infosoft = 'SI', status = 'En Proceso', fecha_asig = '"+Time.now.strftime("%Y/%m/%d")+"' where id = "+@ident)
    redirect_to :controller => 'welcome', :action => 'admin_casos'
 
 end
@@ -179,7 +193,7 @@ def caso_creado
     @campos.each { |x| if x != "" then @string << x +" - " end}
     @string = @string[0...-3]
   	database.execute( "insert into casos(usuario,infosoft,fecha_creado,fecha_requerida,status,parque,altas,arpu,recargas,periodo,condiciones,comentarios,
-  		               tipo_archivo, act_tabla,tlv,phone,pre_post,movil,tv,fijo,im,tipo_caso,agrup,especifique,titulo,campos,comment_ad,comment_cons,complejidad,otro, separacion,consultor)
+  		               tipo_archivo, act_tabla,tlv,phone,pre_post,movil,tv,fijo,im,tipo_caso,agrup,especifique,titulo,campos,comment_ad,comment_cons,complejidad,otro, separacion,consultor,fecha_asig)
   	                   values("+$usuario_id.to_s+",'NO','"+Time.now.strftime("%Y/%m/%d")+"','"+params[:client]["fecha(1i)"]+"/"+params[:client]["fecha(2i)"]+"/"+params[:client]["fecha(3i)"]+"',
   	                   'Creado', '"+(params[:client][:parque] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:altas] == '0' ? 'NO' : 'SI' )+"',
   	                 '"+(params[:client][:arpu] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:recargas] == '0' ? 'NO' : 'SI' )+"',
@@ -187,7 +201,7 @@ def caso_creado
   	                  '"+params[:client][:comment]+"','', '"+params[:client][:tipo]+"', '"+(params[:client][:act] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tlv] == '0' ? 'NO' : 'SI' )+"',
   	                   '"+(params[:client][:sp] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:pago] == '0' ? 'NO' : 'SI' )+"','"+(params[:client][:movil] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:tv] == '0' ? 'NO' : 'SI' )+"','"+(params[:client][:fijo] == '0' ? 'NO' : 'SI' )+"', '"+(params[:client][:im] == '0' ? 'NO' : 'SI' )+"', '"+params[:client][:recu]+"', '"+params[:client][:agrup]+"',
   	                   '"+(params[:client][:especifique] == nil ? 'N/A' : params[:client][:especifique])+"', '"+params[:client][:titulo]+"','"+@string+"','','','No asignada', '"+(params[:client][:other] == '0' ? 'NO' : params[:client][:otro] )+"',
-  	                   '"+params[:client][:separacion]+"', -1 )")
+  	                   '"+params[:client][:separacion]+"', -1 , 'No Asignado')")
   	
     #redirect_to :controller => 'welcome', :action => 'index'
   
@@ -205,7 +219,7 @@ usuario_id = 0
 #database.execute( "create table casos(id INTEGER PRIMARY KEY, usuario INTEGER ,infosoft TEXT, fecha_creado TEXT, fecha_requerida TEXT,
  #                 status TEXT,parque TEXT,altas TEXT,arpu TEXT,recargas TEXT, periodo TEXT, condiciones TEXT, comentarios TEXT, tipo_archivo TEXT,
   #                act_tabla TEXT, tlv TEXT, phone TEXT, pre_post TEXT, movil TEXT, tv TEXT, fijo TEXT, im TEXT, tipo_caso TEXT, agrup TEXT, especifique TEXT,
-   #                titulo TEXT, campos TEXT, comment_ad TEXT, comment_cons TEXT, complejidad TEXT,otro TEXT, separacion TEXT, consultor INTEGER)" )
+   #                titulo TEXT, campos TEXT, comment_ad TEXT, comment_cons TEXT, complejidad TEXT,otro TEXT, separacion TEXT, consultor INTEGER, fecha_asig TEXT)" )
 #database.execute("drop table usuarios")
 #database.execute("create table if not exists usuarios(id INTEGER PRIMARY KEY,usuario TEXT, password TEXT,tipo TEXT, area_vp TEXT, gg TEXT, gerencia TEXT,
 #                  nombre TEXT, cargo TEXT, idop TEXT,email TEXT)")

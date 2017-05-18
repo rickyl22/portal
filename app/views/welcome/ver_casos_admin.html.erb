@@ -17,7 +17,6 @@ body {
 }
 table{
    border-collapse: collapse;
-   width: 65%;
    empty-cells: show;
 }
 th {
@@ -44,15 +43,18 @@ td {
 <% end %>
 <p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Detalles del caso</b></p>
 
-<% @data.each do |data| %>  
-  <table style="position: absolute;top: 230px;left: 25%;">
+<% @data.each do |data| %> 
+  <table style="position: absolute;top: 230px;left: 25%;width: 45%; "> 
+  <tr><td style="border: none;border-collapse:collapse;">
+  <table style="width: 100%;table-layout:fixed">
       <tr>
          <th>Datos del caso</th>
          <th>Indicadores</th> 
       </tr>
       <tr>
-         <td>Titulo del Requerimiento: <%= @data[0][25]  %><br>
-             Fecha creacion: <%= @data[0][3]  %><br>
+         <td style="word-wrap:break-word;">Titulo del Requerimiento: <%= @data[0][25]  %><br>
+             Fecha creación: <%= @data[0][3]  %><br>
+             Fecha asignación: <%= @data[0][33]  %><br>
              Fecha requerida: <%= @data[0][4]  %><br>
              Estatus: <%= @data[0][5]  %><br>
              Tipo de archivo: <%= @data[0][13]  %><br>
@@ -69,7 +71,9 @@ td {
          </td>
       </tr>
   </table>
-  <table style="position: absolute;top: 390px;left: 25%;">
+  </td></tr>
+  <tr><td style="border: none;border-collapse:collapse;">
+  <table style="width: 100%;">
     <tr>
       <th>Filtros</th>
       <th>Linea de negocio</th>
@@ -85,8 +89,9 @@ td {
       
     </tr>
   </table>
- 
-  <table  style="position: absolute;top: 495px;left: 25%;">
+ </td></tr>
+ <tr><td style="border: none;border-collapse:collapse;">
+  <table style="width: 100%;">
     <tr>
       <th>Tipo de caso</th>
        <th>Agrupaciones</th>
@@ -97,39 +102,24 @@ td {
             Especificacion: <%= @data[0][24]%></td>
     </tr>
   </table>
-  
-      <table style="position: absolute;top:565px;left: 25%;">
+  </td></tr>
+  <tr><td style="border: none;border-collapse:collapse;">
+      <table style="width: 100%;table-layout:fixed">
 		<tr>
 			<th>Condiciones</th>
       <th>Visualizacion del caso - Campos</th>
 		</tr>
 		<tr>
-			<td><%= @data[0][11] %>&nbsp</td>
+			<td style="word-wrap:break-word"><%= @data[0][11] %></td>
       <td><%= @data[0][26] %></td>
 			
 		</tr>
 	  </table>
-    <table style="position: absolute;top:615px;left: 25%" >
-      <tr>
-        <th>
-          Comentarios Administrador
-        </th>
-        <th>
-          Comentarios Consultor
-        </th>
-      </tr>
-      <tr>
-        <td>
-          <%= @data[0][27] %>&nbsp
-        </td>
-        <td>
-          <% @comments.each do |com|  %>
-          <%= com %><br>
-          <% end %>
-        </td>
-      </tr>
-    </table>
-    <table style="position: absolute;top:675px;left: 25%" >
+    </td></tr>
+    <tr><td style="border: none;border-collapse:collapse;">
+    </td></tr>
+    <tr><td style="border: none;border-collapse:collapse;">
+    <table style="width: 100%;">
       <tr>
         <th>
           Complejidad
@@ -147,31 +137,68 @@ td {
         </td>
       </tr>
     </table>
-   <%= form_for :clientes, :html => { :style => 'position:absolute;top:710px;left:25%' },:url => { :controller => "welcome", :action => "guardar_admin"} do |f| %>
-   <br>Agregar comentario<br><%= f.text_area :comment_admin, :value => @data[0][27], :rows => "5" , :cols => "80"%><br>
-   <%= hidden_field_tag :ident, @data[0][0] %>
-  <%= f.submit "Enviar_comentario" %>
-<% end %>
-<%= form_for :clientes, :html => { :style => 'position:absolute;top:870px;left:25%;' },:url => { :controller => "welcome", :action => "asig_comp"} do |f| %>
+    </td></tr>
+    <tr><td style="border: none;border-collapse:collapse;">
+   
+</td></tr>
+<tr><td style="border: none;border-collapse:collapse;">
+<%= form_for :clientes,:url => { :controller => "welcome", :action => "asig_comp"} do |f| %>
 <%= hidden_field_tag :titulo, @data[0][25] %>
 <%= hidden_field_tag :ident, @data[0][0] %>
 Asignar complejidad<br><%= f.select :comp, ['Bajo', 'Medio','Alto','URGENTE'] %><br><br>
-<%= f.submit "Asignar caso"  %>
+<%= f.submit "Asignar complejidad"  %>
 
  <% end %>  
 
  <% end %> 
+ </td></tr>
+ <tr><td style="border: none;border-collapse:collapse;">
  <% if @data[0][5] = "Cerrado" then %>
-<%= form_for :clientes, :html => { :style => 'position:absolute;top:950px;left: 25%;' }, :url => { :controller => "welcome", :action => "cerrar_caso"} do |f| %>
+<%= form_for :clientes, :url => { :controller => "welcome", :action => "cerrar_caso"} do |f| %>
     <%= hidden_field_tag :ident, @data[0][0] %>
   <br><%= f.submit "Cerrar Caso" , :disabled => @disabled %><%= @cerrado_error %>
  <% end %>
- 
-  <%= form_for :clientes, :html => { :style => 'position:absolute;top:1000px;left: 25%;' },:url => { :controller => "welcome", :action => "admin_casos"} do |f| %>
+ </td></tr>
+ <tr><td style="border: none;border-collapse:collapse;">
+  <%= form_for :clientes,:url => { :controller => "welcome", :action => "admin_casos"} do |f| %>
   <%= hidden_field_tag :ident, @data[0][0] %>
   <br><%= f.submit "Volver"  %>
   <% end %>
+  </td></tr>
   <% end %>
+  </table>
+  <table style="position: absolute; top: 230px; left: 72%; width: 25%;table-layout:fixed">
+      <tr>
+        <th>
+          Comentarios 
+        </th>
+      </tr>
+      
+        
+          <% @comments.each do |com|  %>
+          <tr>
+          <% if com[1] == "Administrador" %>
+          <td style="word-wrap:break-word;">
+          <% else %>
+          <td style="word-wrap:break-word;background-color: #D3D3D3;">
+          <% end %>
+          <%= com[1] %> - <%= com[2] %><br>
+          <%= com[0] %>
+          </td>
+          </tr>
+          <% end %>
+        
+      
+      <tr>
+        <td style="border: none;border-collapse:collapse;">
+          <%= form_for :clientes,:url => { :controller => "welcome", :action => "guardar_admin"} do |f| %>
+   <br>Agregar comentario<br><%= f.text_area :comment_admin, :value => @data[0][27], :rows => "5" , :cols => "40"%><br>
+   <%= hidden_field_tag :ident, @data[0][0] %>
+  <%= f.submit "Enviar_comentario" %>
+<% end %>
+        </td>
+      </tr>
+    </table>
  <div style="position: absolute;top: 180px;width: 270px;height: 1100px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
 </body>
 </html>

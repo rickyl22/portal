@@ -31,6 +31,9 @@ body {
 <%= form_for :clientes, :html => { :style => 'position:absolute;top:230px;' }, :url => { :controller => "welcome", :action => "admin_casos"} do |f| %>
   <%= f.submit "Ver Casos" , :class => "button" %>
  <% end %>
+ <%= form_for :clientes, :html => { :style => 'position:absolute;top:280px;' }, :url => { :controller => "welcome", :action => "ver_usuarios"} do |f| %>
+  <%= f.submit "Ver Usuarios" , :class => "button" %>
+ <% end %>
  <%= form_for :client, :html => { :style => 'position:absolute;top:200px;left:25%;' }, :url => { :controller => "welcome", :action => "crear_usuario"}, :method => 'get' do |f| %>
   <b style="font-size: 1.3em;">Datos del usuario</b><br><br>
    Usuario<br><%= f.text_field :usuario, :required => true %><br>

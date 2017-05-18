@@ -17,7 +17,6 @@ body {
 }
 table{
    border-collapse: collapse;
-   width: 65%;
    empty-cells: show;
 }
 th {
@@ -38,26 +37,29 @@ td {
 <%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 160px;") %>
 <%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
 <div style="position: absolute; top: 160px;width: 100%;height: 20px; background-color : black"></div>
-<div style="position: absolute;top: 180px;width: 270px;height: 1000px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
+
 <%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "mineria"} do |f| %>
   <%= f.submit "Cerrar Sesion" , :class => "button" %>
 <% end %>
 <p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Detalles del caso</b></p>
 
-<% @data.each do |data| %>  
-  <table style="position: absolute;top: 230px;left: 25%;">
+<% @data.each do |data| %> 
+  <table style="position: absolute;top: 230px;left: 25%;width: 45%; "> 
+  <tr><td style="border: none;border-collapse:collapse;">
+  <table style="width: 100%;table-layout:fixed">
       <tr>
          <th>Datos del caso</th>
          <th>Indicadores</th> 
       </tr>
       <tr>
-         <td>Titulo del Requerimiento: <%= @data[0][25]  %><br>
-             Fecha creacion: <%= @data[0][3]  %><br>
+         <td style="word-wrap:break-word;">Titulo del Requerimiento: <%= @data[0][25]  %><br>
+             Fecha creación: <%= @data[0][3]  %><br>
+             Fecha asignación: <%= @data[0][33]  %><br>
              Fecha requerida: <%= @data[0][4]  %><br>
              Estatus: <%= @data[0][5]  %><br>
              Tipo de archivo: <%= @data[0][13]  %><br>
              Modo de separacion: por <%= @data[0][31] %><br>
-             <%= link_to "Documento", :controller => "welcome", :action => "download" %><br>
+             <%= link_to "Documento", :controller => "welcome", :action => "download" %>
          </td>
          <td>Periodo: <%= @data[0][10]  %><br>
              Parque: <%= @data[0][6]  %><br>
@@ -69,13 +71,15 @@ td {
          </td>
       </tr>
   </table>
-  <table style="position: absolute;top: 390px;left: 25%;">
+  </td></tr>
+  <tr><td style="border: none;border-collapse:collapse;">
+  <table style="width: 100%;">
     <tr>
       <th>Filtros</th>
       <th>Linea de negocio</th>
     </tr>
     <tr>
-     <td>Smartphone : <%= @data[0][16]%><br>Prepago/Postpago: <%= @data[0][17]%><br>Otro: <%= @data[0][30] %></td>
+     <td>Smartphone/No Smartphone : <%= @data[0][16]%><br>Prepago/Postpago: <%= @data[0][17]%><br>Otro: <%= @data[0][30] %></td>
      <td>
              Movil: <%= @data[0][18]  %><br>
              TV: <%= @data[0][19]  %><br>
@@ -85,8 +89,9 @@ td {
       
     </tr>
   </table>
- 
-  <table  style="position: absolute;top: 495px;left: 25%;">
+ </td></tr>
+ <tr><td style="border: none;border-collapse:collapse;">
+  <table style="width: 100%;">
     <tr>
       <th>Tipo de caso</th>
        <th>Agrupaciones</th>
@@ -97,39 +102,24 @@ td {
             Especificacion: <%= @data[0][24]%></td>
     </tr>
   </table>
-  <% end %>
-      <table style="position: absolute;top:565px;left: 25%;">
+  </td></tr>
+  <tr><td style="border: none;border-collapse:collapse;">
+      <table style="width: 100%;table-layout:fixed">
     <tr>
       <th>Condiciones</th>
       <th>Visualizacion del caso - Campos</th>
     </tr>
     <tr>
-      <td><%= @data[0][11] %></td>
+      <td style="word-wrap:break-word"><%= @data[0][11] %></td>
       <td><%= @data[0][26] %></td>
       
     </tr>
     </table>
-    <table style="position: absolute;top:615px;left: 25%" >
-      <tr>
-        <th>
-          Comentarios Administrador
-        </th>
-        <th>
-          Comentarios Consultor
-        </th>
-      </tr>
-      <tr>
-        <td>
-          <%= @data[0][27] %>
-        </td>
-        <td>
-          <% @comments.each do |com|  %>
-          <%= com %><br>
-          <% end %>
-        </td>
-      </tr>
-    </table>
-    <table style="position: absolute;top:875px;left: 25%" >
+    </td></tr>
+    <tr><td style="border: none;border-collapse:collapse;">
+    </td></tr>
+    <tr><td style="border: none;border-collapse:collapse;">
+    <table style="width: 100%;">
       <tr>
         <th>
           Complejidad
@@ -147,20 +137,62 @@ td {
         </td>
       </tr>
     </table>
-   <%= form_for :clientes, :html => { :style => 'position:absolute;top:910px;left:25%' },:url => { :controller => "welcome", :action => "cambiar_estatus"} do |f| %>
+    </td></tr>
+
+ <% end %> 
+ </td></tr>
+ <tr><td style="border: none;border-collapse:collapse;">
+ <%= form_for :clientes,:url => { :controller => "welcome", :action => "cambiar_estatus"} do |f| %>
    <br>Cambiar estatus a: <br><%= f.select :estatus, ['Creado','En proceso', 'Cerrado'] %>
    <%= hidden_field_tag :ident, @data[0][0] %>
   <%= f.submit "Cambiar" %>
 <% end %> 
-   <%= form_for :clientes, :html => { :style => 'position:absolute;top:990px;left:25%' },:url => { :controller => "welcome", :action => "guardar_cons"} do |f| %>
-   Agregar comentario<br><%= f.text_area :comment_admin,  :value => @data[0][28], :rows => "5" , :cols => "80"%><br>
+ </td></tr>
+ <tr><td style="border: none;border-collapse:collapse;">
+  <%= form_for :clientes,:url => { :controller => "welcome", :action => "consultor"} do |f| %>
+  <%= hidden_field_tag :ident, @data[0][0] %>
+  <br><%= f.submit "Volver"  %>
+  <% end %>
+  </td></tr>
+  
+  </table>
+  <table style="position: absolute; top: 230px; left: 72%; width: 25%;table-layout:fixed">
+      <tr>
+        <th>
+          Comentarios 
+        </th>
+      </tr>
+      
+        
+          <% @comments.each do |com|  %>
+          <tr>
+          <% if com[1] == "Administrador" %>
+          <td style="word-wrap:break-word;">
+          <% else %>
+          <td style="word-wrap:break-word;background-color: #D3D3D3;">
+          <% end %>
+          <%= com[1] %> - <%= com[2] %><br>
+          <%= com[0] %>
+          </td>
+          </tr>
+          <% end %>
+        
+      
+      <tr>
+        <td style="border: none;border-collapse:collapse;">
+          <%= form_for :clientes,:url => { :controller => "welcome", :action => "guardar_cons"} do |f| %>
+   <br>Agregar comentario<br><%= f.text_area :comment_admin, :value => @data[0][27], :rows => "5" , :cols => "40"%><br>
    <%= hidden_field_tag :ident, @data[0][0] %>
-  <%= f.submit "enviar_comentario" %>
+  <%= f.submit "Enviar_comentario" %>
 <% end %>
-   
-  <%= form_for :clientes, :html => { :style => 'position:absolute;top:1150px;left: 25%;' },:url => { :controller => "welcome", :action => "consultor"} do |f| %>
-  <%= f.submit "Volver"  %>
-  <% end %>   
- 
+        </td>
+      </tr>
+    </table>
+ <div style="position: absolute;top: 180px;width: 270px;height: 1100px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
 </body>
 </html>
+
+
+
+
+

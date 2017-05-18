@@ -40,11 +40,12 @@ td {
   <%= f.submit "Cerrar Sesion" , :class => "button" %>
 <% end %>
 <p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Lista de casos</b></p>
-<table style="position: absolute;top: 230px;left: 25%;border: 1px solid black;">                         
+<table style="position: absolute;top: 230px;left: 25%;border: 1px solid black;table-layout:fixed">                         
   <tr>                        
     <th>Caso</th>
     <th>Titulo</th>
-    <th>Fecha de creacion</th>
+    <th style="word-wrap:break-word;">Fecha de creación/asignación</th>
+    <th style="word-wrap:break-word;">Dias transcurridos desde:</th>
     <th>Asignado a Infosoft</th>
     <th>Complejidad</th>
     <th>Estatus</th>
@@ -53,8 +54,17 @@ td {
 <% @data.each do |data| %>       
   <tr>
     <td><%= data[0] %></td>
-    <td><%= data[25] %></td> 
-    <td><%= data[3] %></td>
+    <td style="word-wrap:break-word;"><%= data[25] %></td> 
+    <td style="word-wrap:break-word;">Creación:<br> <%= data[3] %><br>Asignación:<br><%= data[33] %></td>
+    <%  @creacion = Date.parse data[3]
+        @dif_asig = "No asignado"
+        @now = Date.parse Time.now.strftime("%Y/%m/%d")
+        @dif_cre = @now.mjd - @creacion.mjd
+        if data[33] != 'No Asignado'
+           @asig = Date.parse data[33]
+           @dif_asig = @now.mjd - @asig.mjd
+        end  %>
+    <td style="word-wrap:break-word;">Creación:<br> <%= @dif_cre %> <br>Asignación:<br><%= @dif_asig %> </td>
     <td><%= data[2] %></td>    
     <td><%= data[29] %></td>  
     <td><%= data[5] %></td> 
