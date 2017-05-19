@@ -36,7 +36,36 @@ function remove(element){
     element.parentNode.parentNode.removeChild(element.parentNode);
 }
 
+
+
+var mercadeo = ["Direccion de Ingreso, Consumo Fidel y Reten","Gerencia General Planificación y Administración",
+                "Gerencia General Inteligencia de Negocios","Gerencia Experiencia del Cliente","Gerencia General Movistar TV",
+                "Gerencia General Captación","Gerencia General de Publicidad y medios"]
+
+var rrhh = ["Gerencia General Planificación, Org. Y Compens.","Gerencia General Desarrollo, Organiz y Talento",
+            "Gerencia General Experiencia al Empleado"]                
+
 function alert(element){
+    if (element.value == "VP MERCADEO"){
+        $("#ggs").empty();
+        for( var i = 0; i < mercadeo.length ; i++){
+
+            var option = document.createElement("option");
+            option.text = mercadeo[i];
+            option.value = mercadeo[i];
+            $("#ggs").append(option);
+        }
+    }else{
+        $("#ggs").empty();
+        for( var i = 0; i < rrhh.length ; i++){
+            var option = document.createElement("option");
+            option.text = rrhh[i];
+            option.value = rrhh[i];
+            $("#ggs").append(option);
+        }
+    } 
+
+/*
     $("#areas")[0].disabled = false; 
     $("#areas").empty();
     var option2 = document.createElement("option");
@@ -46,6 +75,6 @@ function alert(element){
     var option = document.createElement("option");
     option.text = element.value;
     option.value = element.value;
-    $("#areas")[0].append(option)
+    $("#areas")[0].append(option)*/
     
 }
