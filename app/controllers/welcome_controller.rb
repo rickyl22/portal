@@ -97,7 +97,14 @@ def guardar_cons
    @ident = params[:ident]
    @comments = params[:clientes][:comment_admin]
    database.execute("insert into comentarios(id_caso,comentario,autor,fecha) values("+@ident+",'"+params[:clientes][:comment_admin]+"', 'Consultor','"+Time.now.strftime("%Y/%m/%d-%H:%M")+"')")
-   redirect_to :controller => 'welcome', :action => 'ver_casos_consultor', :params => params
+   @type = database.execute("select tipo from usuarios where id = "+$usuario_id.to_s)
+   p "hola"
+   p @type[0][0]
+   if @type[0][0] == 'consultor'
+      redirect_to :controller => 'welcome', :action => 'ver_casos_consultor', :params => params
+   else 
+   	  redirect_to :controller => 'welcome', :action => 'ver_casos_consultor_lider', :params => params
+   	end
 end
 
 def ver_casos_consultor
