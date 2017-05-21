@@ -1,7 +1,20 @@
 Rails.application.routes.draw do
+  resources :resumes, only: [:index, :new, :create, :destroy]
+  resources :file, only: [:index, :new, :create, :destroy]
+   
+   root 'welcome#index'
+ root "resumes#index"
+  get 'resumes/index'
+
+  get 'resumes/new'
+
+  get 'resumes/create'
+
+  get 'resumes/destroy'
+
   get 'welcome/index'
 
-  root 'welcome#index'
+ 
   get 'welcome/admin'
   get 'welcome/login'
   get 'welcome/cliente'
@@ -73,5 +86,7 @@ Rails.application.routes.draw do
   get 'welcome/ver_casos_consultor_lider'
   post 'welcome/ver_usuarios'
   get 'welcome/ver_usuarios'
+  post 'welcome/create'
+  get 'welcome/create'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -256,13 +256,45 @@ usuario_id = 0
   end
 
   def cliente
-  	
+  	@resume = Resume.new
+  	@resumes = Resume.all
   end
 
   def crear_caso
 	@otro = 0
   end
 
+  def new
+    @resume = Resume.new
+  end
+
+  def create
+    @resume = Resume.new(resume_params)
+    
+    
+
+    
+    	
+    
+    if @resume.save
+    	p "holaaaaa welcome"
+    	p @resume
+      redirect_to :back
+    else
+      render "new"
+    end
+  end
+
+  def destroy
+    @resume = Resume.find(params[:id])
+    @resume.destroy
+    redirect_to resumes_path, notice:  "The resume #{@resume.name} has been deleted."
+  end
+
+private
+  def resume_params
+    params.require(:resume).permit(:name, :attachment)
+  end
   
 
 
