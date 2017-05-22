@@ -44,8 +44,8 @@ body {
              "DIRECCIÓN RELACIONES INSTITUCIONALES Y GOB.","DIRECCIÓN DE SEGURIDAD Y FRAUDE",
              "DIRECCIÓN DE AUDITORÍA","VP EMPRESAS","VP FINANAZAS Y CONTROL DE GESTIÓN",
              "VP CANALES"],{:include_blank => true}, :onChange => "alert(this)", :id => "areas" %><br>
-  GG<br><%= f.select :gg, ['area1', 'area2','area3'], {},:id => "ggs" %><br>
-  Gerencia<br><%= f.select :gerencia, ['area1', 'area2','area3'], {}, :id => "gerencias" %><br />
+  GG<br><%= f.select :gg, ['GG'], {:include_blank => true}, :onChange => "alert2(this)", :id => "ggs" %><br>
+  Gerencia<br><%= f.select :gerencia, ['Gerencia'], {:include_blank => true}, :id => "gerencias" %><br />
   Nombre<br><%= f.text_field :nombre, :required => true %><br />
   Cargo<br><%= f.text_field :cargo, :required => true %><br />
   IDOP<br><%= f.text_field :idop, :required => true %><br>
