@@ -35,7 +35,7 @@ td {
 <%= image_tag("/logo_tel.png", :style => "position: absolute;top: 0px;left: 0px;width: 100%;height: 160px;") %>
 <%= image_tag("/company_logo.png", :style => "position: absolute;top: 50px;left: 15%;width: 15%;") %>
 <div style="position: absolute; top: 160px;width: 100%;height: 20px; background-color : black"></div>
-<div style="position: absolute;top: 180px;width: 270px;height: 900px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
+<div style="position: absolute;top: 180px;width: 270px;height: 1400px;"><img style="height: 100%;width: 100%;" src="/login_cuadro.png" ></div>
 <%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "mineria"} do |f| %>
   <%= f.submit "Cerrar Sesion" , :class => "button" %>
 <% end %>
@@ -48,8 +48,9 @@ td {
  <%= form_for :clientes, :html => { :style => 'position:absolute;top:280px;' }, :url => { :controller => "welcome", :action => "ver_usuarios"} do |f| %>
   <%= f.submit "Ver Usuarios" , :class => "button" %>
  <% end %>
-<p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Lista de casos</b></p>
-<table style="position: absolute;top: 230px;left: 25%;border: 1px solid black;table-layout:fixed">                         
+ <div style="position: absolute;top: 200px;left: 25%;" >
+<p style="font-size: 1.3em;"><b>Lista de casos abiertos</b></p>
+<table style="width: 90%; border: 1px solid black;table-layout:fixed">                         
   <tr> 
 
     <th>Caso</th>
@@ -85,6 +86,45 @@ td {
   </tr>
 
 <% end %>                        
-</table> 
+</table><br> 
+<p style="font-size: 1.3em;"><b>Lista de casos cerrados</b></p>
+<table style="width: 90%; border: 1px solid black;table-layout:fixed">                         
+  <tr> 
+
+    <th>Caso</th>
+    <th>Titulo</th>
+    <th style="word-wrap:break-word;">Feacha de creación/asignación</th>
+    <th style="word-wrap:break-word;">Dias transcurridos desde:</th>
+    <th>Asignado a Infosoft</th>
+    <th>Complejidad</th>
+    <th>Estatus</th>
+    <th>Ver Casos</th>
+  </tr>
+<% @data2.each do |data2| %>       
+  <tr>
+    <td><%= data2[0] %></td>
+    <td style="word-wrap:break-word;"><%= data2[25] %></td> 
+    <td style="word-wrap:break-word;">Creación:<br> <%= data2[3] %><br>Asignación:<br><%= data2[33] %></td>
+    <%  @creacion = Date.parse data2[3]
+        @dif_asig = "No asignado"
+        @now = Date.parse Time.now.strftime("%Y/%m/%d")
+        @dif_cre = @now.mjd - @creacion.mjd
+        if data2[33] != 'No Asignado'
+           @asig = Date.parse data2[33]
+           @dif_asig = @now.mjd - @asig.mjd
+        end  %>
+    <td style="word-wrap:break-word;">Creación:<br> <%= @dif_cre %> <br>Asignación:<br><%= @dif_asig %> </td>
+    <td><%= data2[2] %></td>    
+    <td><%= data2[29] %></td>  
+    <td><%= data2[5] %></td>  
+    <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "ver_casos_admin"} do |f| %>
+    <%= hidden_field_tag :ident, data2[0] %>
+  <%= f.submit "Ver"  %>
+ <% end %></td>  
+  </tr>
+
+<% end %>                        
+</table>
+</div>
 </body>
 </html>

@@ -88,5 +88,9 @@ Rails.application.routes.draw do
   get 'welcome/ver_usuarios'
   post 'welcome/create'
   get 'welcome/create'
+  post 'welcome/borrar_usuario'
+  get 'welcome/borrar_usuario'
+  post 'welcome/detalles_usuario'
+  get 'welcome/detalles_usuario'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

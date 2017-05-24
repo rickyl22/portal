@@ -37,14 +37,18 @@ body {
  <%= form_for :client, :html => { :style => 'position:absolute;top:200px;left:25%;' }, :url => { :controller => "welcome", :action => "crear_usuario"}, :method => 'get' do |f| %>
   <b style="font-size: 1.3em;">Datos del usuario</b><br><br>
   <b style="color: red"> El nombre de usuario o correo electronico ya existen</b><br>
-  Usuario<br><%= f.text_field :usuario, :required => true %><br>
+   Usuario<br><%= f.text_field :usuario, :required => true %><br>
   Password<br><%= f.text_field :password, :required => true %><br>
-  Tipo<br><%= f.select :tipo, ['cliente', 'consultor','consultor-lider','admin']%><br>
-  Area VP<br><%= f.select :area, ['area1', 'area2','area3'] %><br>
-  GG<br><%= f.select :gg, ['area1', 'area2','area3'] %><br>
-  Gerencia<br><%= f.select :gerencia, ['area1', 'area2','area3'] %><br />
+  Tipo<br><%= f.select :tipo, ['cliente', 'consultor','consultor-lider','admin'], {},  :include_blank => true %><br>
+  Area VP<br><%= f.select :area, ["VP MERCADEO","VP PLANIFICACIÓN ESTRATÉGICA, REGUL Y CAL.","VP RECURSOS HUMANOS",
+             "GERENCIA GENERAL FUNDACIÓN TELEFÓNICA","VP TECNOLOGÍA","VP SECRETARÍA GENERAL",
+             "DIRECCIÓN RELACIONES INSTITUCIONALES Y GOB.","DIRECCIÓN DE SEGURIDAD Y FRAUDE",
+             "DIRECCIÓN DE AUDITORÍA","VP EMPRESAS","VP FINANAZAS Y CONTROL DE GESTIÓN",
+             "VP CANALES"],{:include_blank => true}, :onChange => "alert(this)", :id => "areas" %><br>
+  GG<br><%= f.select :gg, ['GG'], {:include_blank => true}, :onChange => "alert2(this)", :id => "ggs" %><br>
+  Gerencia<br><%= f.select :gerencia, ['Gerencia'], {:include_blank => true}, :id => "gerencias" %><br />
   Nombre<br><%= f.text_field :nombre, :required => true %><br />
-  Cargo<br><%= f.select :cargo, ['area1', 'area2','area3'] %><br />
+  Cargo<br><%= f.text_field :cargo, :required => true %><br />
   IDOP<br><%= f.text_field :idop, :required => true %><br>
   Email<br><%= f.text_field :email, :required => true %><br />
   Confirmar email<br><%= f.text_field :email2, :required => true %><br /><br>
@@ -53,3 +57,4 @@ body {
  <% end %>
 </body>
 </html>
+

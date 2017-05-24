@@ -276,7 +276,7 @@ function alert(element){
             option.value = current[i][0];
             $("#ggs").append(option);
         }
-    } else {
+    } else if(element.value == "VP CANALES"){
         $("#ggs").empty();
         var blank = document.createElement("option");
             blank.text = " ";
@@ -302,6 +302,10 @@ function alert2(element){
         }
     }
     $("#gerencias").empty();
+    var blank = document.createElement("option");
+            blank.text = " - ";
+            blank.value = " - ";
+            $("#gerencias").append(blank);
         for( var i = 1; i < gg.length ; i++){
             var option = document.createElement("option");
             option.text = gg[i];

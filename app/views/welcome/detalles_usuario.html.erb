@@ -49,35 +49,49 @@ td {
  <%= form_for :clientes, :html => { :style => 'position:absolute;top:280px;' }, :url => { :controller => "welcome", :action => "ver_usuarios"} do |f| %>
   <%= f.submit "Ver Usuarios" , :class => "button" %>
  <% end %>
-<p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Lista de Usuarios</b></p>
+<p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Datos del Usuario</b></p>
 <table style="position: absolute;top: 230px;left: 25%;border: 1px solid black;table-layout:fixed">                         
-  <tr> 
-
-    <th>ID</th>
-    <th>Usuario</th>
-    <th>Nombre</th>
-    <th>Email</th>
-    <th>Tipo</th>
-    <th>Detalles</th>
-    <th>Borrar</th>
-  </tr>
-<% @data.each do |data| %>       
+<% @data.each do |data| %>   
   <tr>
-    <td><%= data[0] %></td>
-    <td><%= data[1] %></td> 
-    <td><%= data[7] %></td>    
-    <td><%= data[10] %></td>  
-    <td><%= data[3] %></td>
-    <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "detalles_usuario"} do |f| %>
-    <%= hidden_field_tag :ident, data[0] %>
-  <%= f.submit "Detalles" %>
- <% end %></td> 
-    <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "borrar_usuario"} do |f| %>
-    <%= hidden_field_tag :ident, data[0] %>
-  <%= f.submit "Borrar" %>
- <% end %></td>   
+    <td><b>Nombre:</b></td>
+    <td><%= data[7] %></td>   
+  </tr>    
+  <tr>
+    <td><b>Usuario:</b></td>
+    <td><%= data[1] %></td>   
   </tr>
-
+  <tr>
+    <td><b>Password:</b></td>
+    <td><%= data[2] %></td>   
+  </tr>
+  <tr>
+    <td><b>Tipo:</b></td>
+    <td><%= data[3] %></td>   
+  </tr>
+  <tr>
+    <td><b>VP:</b></td>
+    <td><%= data[4] %></td>   
+  </tr>
+  <tr>
+    <td><b>GG:</b></td>
+    <td><%= data[5] %></td>   
+  </tr>
+  <tr>
+    <td><b>Gerencia:</b></td>
+    <td><%= data[6] %></td>   
+  </tr>
+  <tr>
+    <td><b>Cargo:</b></td>
+    <td><%= data[8] %></td>   
+  </tr>
+  <tr>
+    <td><b>IDOP:</b></td>
+    <td><%= data[9] %></td>   
+  </tr>
+  <tr>
+    <td><b>Email:</b></td>
+    <td><%= data[10] %></td>   
+  </tr>
 <% end %>                        
 </table> 
 </body>
