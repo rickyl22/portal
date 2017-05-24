@@ -204,7 +204,7 @@ end
 
 def admin_casos
 	database = SQLite3::Database.new( "new.database" )
-    @data = database.execute( "select * from casos where status != 'Cerrado'" )
+    @data = database.execute( "select * from casos where status != 'Cerrado' order by infosoft" )
     @data2 = database.execute( "select * from casos where status = 'Cerrado'" )
 end
 

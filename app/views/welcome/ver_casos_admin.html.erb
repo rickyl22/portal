@@ -141,6 +141,8 @@ td {
     <tr><td style="border: none;border-collapse:collapse;">
    
 </td></tr>
+<% end %>
+<% if @data[0][5] != "Cerrado" %>
 <tr><td style="border: none;border-collapse:collapse;">
 <%= form_for :clientes,:url => { :controller => "welcome", :action => "asig_comp"} do |f| %>
 <%= hidden_field_tag :titulo, @data[0][25] %>
@@ -148,12 +150,22 @@ td {
 Asignar complejidad<br><%= f.select :comp, ['Bajo', 'Medio','Alto','URGENTE'] %><br><br>
 <%= f.submit "Asignar complejidad"  %>
 
- <% end %>  
-
  <% end %> 
- </td></tr>
+ </td></tr> 
+<% else %>
+<tr><td style="border: none;border-collapse:collapse;">
+  <%= form_for :clientes,:url => { :controller => "welcome", :action => "asig_comp"} do |f| %>
+<%= hidden_field_tag :titulo, @data[0][25] %>
+<%= hidden_field_tag :ident, @data[0][0] %>
+Asignar complejidad<br><%= f.select :comp, ['Bajo', 'Medio','Alto','URGENTE'] %><br><br>
+<%= f.submit "Reabrir caso"  %>
+<% end %>
+</td></tr>
+  
+ 
+ <% end %>
  <tr><td style="border: none;border-collapse:collapse;">
- <% if @data[0][5] = "Cerrado" then %>
+ 
 <%= form_for :clientes, :url => { :controller => "welcome", :action => "cerrar_caso"} do |f| %>
     <%= hidden_field_tag :ident, @data[0][0] %>
   <br><%= f.submit "Cerrar Caso" , :disabled => @disabled %><%= @cerrado_error %>
@@ -165,7 +177,7 @@ Asignar complejidad<br><%= f.select :comp, ['Bajo', 'Medio','Alto','URGENTE'] %>
   <br><%= f.submit "Volver"  %>
   <% end %>
   </td></tr>
-  <% end %>
+  
   </table>
   <table style="position: absolute; top: 230px; left: 72%; width: 25%;table-layout:fixed">
       <tr>
