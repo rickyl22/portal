@@ -39,6 +39,12 @@ td {
 <%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "mineria"} do |f| %>
   <%= f.submit "Cerrar Sesion" , :class => "button" %>
 <% end %>
+<%= form_for :clientes, :html => { :style => 'position:absolute;top:180px;' }, :url => { :controller => "welcome", :action => "consultor_lider"} do |f| %>
+  <%= f.submit "Manejar Casos" , :class => "button" %>
+<% end %>
+<%= form_for :clientes, :html => { :style => 'position:absolute;top:230px;' }, :url => { :controller => "welcome", :action => "consultor"} do |f| %>
+  <%= f.submit "Mis Casos" , :class => "button" %>
+ <% end %>
 <p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Lista de casos</b></p>
 <table style="position: absolute;top: 230px;left: 25%;border: 1px solid black;table-layout:fixed">                         
   <tr>                        
@@ -49,7 +55,6 @@ td {
     <th>Asignado a Infosoft</th>
     <th>Complejidad</th>
     <th>Estatus</th>
-    <th>Ver Casos</th>
     <th>Asignar a:</th>
   </tr>
 <% @data.each do |data| %>       
@@ -69,12 +74,17 @@ td {
     <td><%= data[2] %></td>    
     <td><%= data[29] %></td>  
     <td><%= data[5] %></td> 
-      <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "ver_casos_consultor_lider"} do |f| %>
-    <%= hidden_field_tag :ident, data[0] %>
-  <%= f.submit "Ver"  %>
- <% end %></td>
+      
      <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "asignar_caso"} do |f| %>
     <%= hidden_field_tag :ident, data[0] %>
+    <% if data[32] != -1 %>
+    <% database = SQLite3::Database.new( "new.database" ) %>
+    <% p "conssss" %>
+    <% p data[32] %>
+    Asignado a: <b><%= data[32] %></b>
+    <% else %>
+    <b>No asignado</b>
+    <% end %>
     <%= f.select :cons , @consultores %>
   <%= f.submit "Asignar"  %>
  <% end %></td>

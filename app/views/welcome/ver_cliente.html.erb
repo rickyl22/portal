@@ -139,9 +139,19 @@ td {
       </tr>
     </table>
     </td></tr>
+    <tr><th>
+      Documento
+    </th></tr>
+    <tr><td><%= form_for @resume, html: { multipart: true }, :url => { :controller => "welcome", :action => "create"}  do |f| %>
+    <br><%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= hidden_field_tag :ident, @data[0][0] %>
+    <%= f.file_field :attachment %><br><br>
+    <%= f.submit "Cargar Documento" %>
+  <% end %></td></tr>
  <tr><td style="border: none;border-collapse:collapse;">
   <%= form_for :clientes,:url => { :controller => "welcome", :action => "ver_casos_cliente"} do |f| %>
-  <%= hidden_field_tag :ident, @data[0][0] %>
+  
   <br><%= f.submit "Volver"  %>
   <% end %>
   </td></tr>

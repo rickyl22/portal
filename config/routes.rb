@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  
   resources :resumes, only: [:index, :new, :create, :destroy]
   resources :file, only: [:index, :new, :create, :destroy]
    
+   get 'welcome/asignar_caso'
    root 'welcome#index'
  root "resumes#index"
   get 'resumes/index'
@@ -71,7 +73,7 @@ Rails.application.routes.draw do
   post 'welcome/consultor_lider'
   get 'welcome/consultor_lider'
   post 'welcome/asignar_caso'
-  get 'welcome/asignar_caso'
+  
   post 'welcome/error_crear_usuario'
   get 'welcome/error_crear_usuario'
   post 'welcome/error_email'

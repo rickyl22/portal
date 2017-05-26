@@ -157,7 +157,7 @@ Asignar complejidad<br><%= f.select :comp, ['Bajo', 'Medio','Alto','URGENTE'] %>
   <%= form_for :clientes,:url => { :controller => "welcome", :action => "asig_comp"} do |f| %>
 <%= hidden_field_tag :titulo, @data[0][25] %>
 <%= hidden_field_tag :ident, @data[0][0] %>
-Asignar complejidad<br><%= f.select :comp, ['Bajo', 'Medio','Alto','URGENTE'] %><br><br>
+<%= hidden_field_tag :comp, 'no' %><br><br>
 <%= f.submit "Reabrir caso"  %>
 <% end %>
 </td></tr>

@@ -49,7 +49,7 @@ td {
   <%= f.submit "Ver Usuarios" , :class => "button" %>
  <% end %>
  <div style="position: absolute;top: 200px;left: 25%;" >
-<p style="font-size: 1.3em;"><b>Lista de casos abiertos</b></p>
+<p style="font-size: 1.3em;"><b>Lista de casos no asignados</b></p>
 <table style="width: 90%; border: 1px solid black;table-layout:fixed">                         
   <tr> 
 
@@ -57,7 +57,7 @@ td {
     <th>Titulo</th>
     <th style="word-wrap:break-word;">Feacha de creación/asignación</th>
     <th style="word-wrap:break-word;">Dias transcurridos desde:</th>
-    <th>Asignado a Infosoft</th>
+    <th>Autor</th>
     <th>Complejidad</th>
     <th>Estatus</th>
     <th>Ver Casos</th>
@@ -76,7 +76,13 @@ td {
            @dif_asig = @now.mjd - @asig.mjd
         end  %>
     <td style="word-wrap:break-word;">Creación:<br> <%= @dif_cre %> <br>Asignación:<br><%= @dif_asig %> </td>
-    <td><%= data[2] %></td>    
+    <td><% database = SQLite3::Database.new( "new.database" ) %>
+    <% p "dataaa" %>
+    <% p data[1] %>
+        <% @autor = database.execute("select usuario from usuarios where id ="+data[1].to_s) %>
+        <% @autor.each do |autor| %>
+           <%= autor[0] %>
+        <% end %>  </td>    
     <td><%= data[29] %></td>  
     <td><%= data[5] %></td>  
     <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "ver_casos_admin"} do |f| %>
@@ -87,6 +93,48 @@ td {
 
 <% end %>                        
 </table><br> 
+<p style="font-size: 1.3em;"><b>Lista de casos asignados</b></p>
+<table style="width: 90%; border: 1px solid black;table-layout:fixed">                         
+  <tr> 
+
+    <th>Caso</th>
+    <th>Titulo</th>
+    <th style="word-wrap:break-word;">Feacha de creación/asignación</th>
+    <th style="word-wrap:break-word;">Dias transcurridos desde:</th>
+    <th>Asignado a Infosoft</th>
+    <th>Complejidad</th>
+    <th>Estatus</th>
+    <th>Ver Casos</th>
+  </tr>
+<% @data3.each do |data| %>       
+  <tr>
+    <td><%= data[0] %></td>
+    <td style="word-wrap:break-word;"><%= data[25] %></td> 
+    <td style="word-wrap:break-word;">Creación:<br> <%= data[3] %><br>Asignación:<br><%= data[33] %></td>
+    <%  @creacion = Date.parse data[3]
+        @dif_asig = "No asignado"
+        @now = Date.parse Time.now.strftime("%Y/%m/%d")
+        @dif_cre = @now.mjd - @creacion.mjd
+        if data[33] != 'No Asignado'
+           @asig = Date.parse data[33]
+           @dif_asig = @now.mjd - @asig.mjd
+        end  %>
+    <td style="word-wrap:break-word;">Creación:<br> <%= @dif_cre %> <br>Asignación:<br><%= @dif_asig %> </td>
+    <td><% database = SQLite3::Database.new( "new.database" ) %>
+        <% @autor = database.execute("select usuario from usuarios where id ="+data[1].to_s) %>
+        <% @autor.each do |autor| %>
+           <%= autor[0] %>
+        <% end %>  </td>    
+    <td><%= data[29] %></td>  
+    <td><%= data[5] %></td>  
+    <td><%= form_for :clientes, :url => { :controller => "welcome", :action => "ver_casos_admin"} do |f| %>
+    <%= hidden_field_tag :ident, data[0] %>
+  <%= f.submit "Ver"  %>
+ <% end %></td>  
+  </tr>
+
+<% end %>                        
+</table><br>
 <p style="font-size: 1.3em;"><b>Lista de casos cerrados</b></p>
 <table style="width: 90%; border: 1px solid black;table-layout:fixed">                         
   <tr> 
@@ -130,6 +178,10 @@ td {
 
 <% end %>                        
 </table>
+
+
+
+
 </div>
 </body>
 </html>

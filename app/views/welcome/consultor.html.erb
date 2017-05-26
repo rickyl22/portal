@@ -39,6 +39,14 @@ td {
 <%= form_for :clientes, :html => { :style => 'position:absolute;right:0px;' }, :url => { :controller => "welcome", :action => "mineria"} do |f| %>
   <%= f.submit "Cerrar Sesion" , :class => "button" %>
 <% end %>
+<% if @admin == 1 %>
+  <%= form_for :clientes, :html => { :style => 'position:absolute;top:180px;' }, :url => { :controller => "welcome", :action => "consultor_lider"} do |f| %>
+  <%= f.submit "Manejar Casos" , :class => "button" %>
+  <% end %>
+  <%= form_for :clientes, :html => { :style => 'position:absolute;top:230px;' }, :url => { :controller => "welcome", :action => "consultor"} do |f| %>
+  <%= f.submit "Mis Casos" , :class => "button" %>
+  <% end %>
+<% end %>
 <p style="position: absolute;top: 180px;left: 25%;font-size: 1.3em;"><b>Lista de casos</b></p>
 <table style="position: absolute;top: 230px;left: 25%;border: 1px solid black;table-layout:fixed">                         
   <tr>                        

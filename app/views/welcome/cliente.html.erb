@@ -35,22 +35,7 @@ body {
  <%= form_for :clientes, :html => { :style => 'position:absolute;top:280px;' }, :url => { :controller => "welcome", :action => "opciones_cliente"} do |f| %>
   <%= f.submit "Opciones" , :class => "button" %>
  <% end %>
- <table style="position: absolute;top: 330px;left: 300px;" >
- <tr><td>
- <%= form_for @resume, html: { multipart: true }, :url => { :controller => "welcome", :action => "create"}  do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-    <%= f.file_field :attachment %>
-    <%= f.submit "Save" %>
-  <% end %>
-  </td></tr>
-  
-<% @resumes.each do |resume| %>
-<tr><td>
-      <%= link_to "Download Resume", resume.attachment_url %>
-      <%= button_to "Delete",  resume, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{resume.name}?" %>
-      </td></tr>
-<% end %>
+ 
 </table>
 </body>
 </html>
