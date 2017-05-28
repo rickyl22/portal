@@ -86,8 +86,13 @@ def asig_comp
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    @comments = database.execute("select complejidad from casos where id = "+@ident)[0][0]
-   if params[:comp] != 'no'
+   if params[:comp] != 'no' and params[:comp] != nil
       @comments = params[:comp]
+  end
+  if params[:clientes] != nil
+     if params[:clientes][:comp] != nil
+        @comments = params[:clientes][:comp]
+     end
   end
    @titulo = params[:titulo]
    @dias = 7
@@ -98,7 +103,6 @@ def asig_comp
    elsif @comments == "URGENTE"
    	  @dias = 3
    end
-
    @asignado = database.execute("select infosoft from casos where id = "+@ident)
    database.execute("update casos set complejidad = '"+@comments+"', infosoft = 'SI', status = 'En Proceso', fecha_asig = '"+Time.now.strftime("%Y/%m/%d")+"' where id = "+@ident)
    @user = database.execute("select usuario from casos where id = "+@ident)
@@ -196,6 +200,8 @@ def cerrar_caso
    database = SQLite3::Database.new( "new.database" )
    @ident = params[:ident]
    database.execute("delete from casos where id = "+@ident)
+   database.execute("delete from comentarios where id_caso = "+@ident)
+   database.execute("delete from docs where id_caso = "+@ident)
    redirect_to :controller => 'welcome', :action => 'admin_casos'
 
 end
@@ -266,6 +272,9 @@ usuario_id = 0
   
 #database.execute("drop table comentarios")
 #database.execute("create table if not exists comentarios(id INTEGER PRIMARY KEY, id_caso INTEGER, comentario TEXT, autor TEXT, fecha TEXT)")
+  
+#database.execute("drop table docs")
+#database.execute("create table if not exists docs(id INTEGER PRIMARY KEY, id_caso INTEGER, fecha TEXT)")
   end
 
   def login
@@ -306,7 +315,8 @@ usuario_id = 0
 
   def create
     @resume = Resume.new(resume_params)
-    
+    database = SQLite3::Database.new( "new.database" )
+    database.execute("insert into docs(id_caso,fecha) values('"+params[:ident]+"','"+Time.now.strftime("%Y/%m/%d - %H:%M")+"')")
     
     if @resume.save
       redirect_to :back, :params => params

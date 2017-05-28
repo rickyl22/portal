@@ -59,6 +59,12 @@ td {
              Estatus: <%= @data[0][5]  %><br>
              Tipo de archivo: <%= @data[0][13]  %><br>
              Modo de separacion: por <%= @data[0][31] %><br>
+             <b>Historial del documento:</b><br>
+             <% database = SQLite3::Database.new( "new.database" )  %>
+             <% @docs = database.execute("select fecha from docs where id_caso = "+@data[0][0].to_s) %>
+             <% @docs.each do |doc| %>
+                Modificado en:<%= doc[0] %><br>
+             <% end %>
              <%= link_to "Documento", :controller => "welcome", :action => "download" %>
          </td>
          <td>Periodo: <%= @data[0][10]  %><br>

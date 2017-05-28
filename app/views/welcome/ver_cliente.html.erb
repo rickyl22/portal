@@ -60,6 +60,12 @@ td {
              Estatus: <%= @data[0][5]  %><br>
              Tipo de archivo: <%= @data[0][13]  %><br>
              Modo de separacion: por <%= @data[0][31] %><br>
+             <b>Historial del documento:</b><br>
+             <% database = SQLite3::Database.new( "new.database" )  %>
+             <% @docs = database.execute("select fecha from docs where id_caso = "+@data[0][0].to_s) %>
+             <% @docs.each do |doc| %>
+                Modificado en:<%= doc[0] %><br>
+             <% end %>
              <%= link_to "Documento", :controller => "welcome", :action => "download" %>
          </td>
          <td>Periodo: <%= @data[0][10]  %><br>
@@ -143,11 +149,10 @@ td {
       Documento
     </th></tr>
     <tr><td><%= form_for @resume, html: { multipart: true }, :url => { :controller => "welcome", :action => "create"}  do |f| %>
-    <br><%= f.label :name %>
-    <%= f.text_field :name %>
+    <br>
     <%= hidden_field_tag :ident, @data[0][0] %>
     <%= f.file_field :attachment %><br><br>
-    <%= f.submit "Cargar Documento" %>
+    <%= f.submit "Cargar Nuevo Documento" %>
   <% end %></td></tr>
  <tr><td style="border: none;border-collapse:collapse;">
   <%= form_for :clientes,:url => { :controller => "welcome", :action => "ver_casos_cliente"} do |f| %>
